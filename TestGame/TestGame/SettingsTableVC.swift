@@ -13,6 +13,9 @@ class SettingsTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("SettingsTableVC: viewDidLoad()")
+        
+        // Remove the lines of empty cells
         tableView.tableFooterView = UIView()
     }
     

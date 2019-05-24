@@ -8,11 +8,15 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class TabBarVC: UITabBarController {
     
+    var user: User?
+    var locationManager: CLLocationManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("TabBarVC viewDidLoad()")
+        print("TabBarVC: viewDidLoad()")
     }
 }
