@@ -16,6 +16,8 @@ class UserVC: UIViewController {
     var user: User?
     
     @IBOutlet weak var usernameOutlet: UILabel!
+    @IBOutlet weak var healthOutlet: UILabel!
+    @IBOutlet weak var powerOutlet: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,5 +31,7 @@ class UserVC: UIViewController {
         self.user = tabBarVC.user
         
         usernameOutlet.text = self.user?.username
+        healthOutlet.text = "Health: \(self.user!.health)"
+        powerOutlet.text = "Power: \(self.user!.power)"
     }
 }

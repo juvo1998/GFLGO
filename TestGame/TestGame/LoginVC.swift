@@ -60,9 +60,11 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
                 let userID = Int(child.key)
                 let username = child.childSnapshot(forPath: "username").value as! String
                 let password = child.childSnapshot(forPath: "password").value as! String
+                let health = child.childSnapshot(forPath: "health").value as! Double
+                let power = child.childSnapshot(forPath: "power").value as! Double
                 
                 if username == usernameText && password == passwordText {
-                    let validUser = User(username: username, password: password, userID: userID!)
+                    let validUser = User(username: username, password: password, userID: userID!, health: health, power: power)
                     self.user = validUser
                     self.performSegue(withIdentifier: "TabBarSegue", sender: self)
                     break;

@@ -14,9 +14,18 @@ class User {
     var password: String
     var userID: Int
     
-    init(username: String, password: String, userID: Int) {
+    var health: Double
+    var power: Double
+    
+    init(username: String, password: String, userID: Int, health: Double, power: Double) {
+        
+        // Set up basic properties
         self.username = username
         self.password = password
         self.userID = userID
+        
+        // Set up stats
+        self.health = health
+        self.power = power
     }
 }

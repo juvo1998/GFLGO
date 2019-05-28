@@ -11,12 +11,16 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    var user: User?
+    var enemy: Enemy?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
+        /*
         if let scene = GKScene(fileNamed: "GameScene") {
             
             // Get the SKScene from the loaded GKScene
@@ -40,6 +44,14 @@ class GameViewController: UIViewController {
                 }
             }
         }
+         */
+        
+        let scene = GameScene(size: self.view.bounds.size)
+        let skView = self.view as! SKView
+        skView.showsNodeCount = true
+        skView.ignoresSiblingOrder = true
+        scene.scaleMode = .resizeFill
+        skView.presentScene(scene)
     }
 
     override var shouldAutorotate: Bool {

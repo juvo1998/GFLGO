@@ -17,6 +17,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     var firebase: DatabaseReference?
     
     var user: User?
+    var selectedEnemy: Enemy?
     
     var locationManager: CLLocationManager?
     var firstCenter: Bool?
@@ -33,6 +34,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var centerOutlet: UIButton!
     @IBOutlet weak var mapOutlet: MKMapView!
     
+    // Callout subview
+    @IBOutlet var enemyCallout: UIView!
+    @IBOutlet weak var enemyCalloutName: UILabel!
+    @IBOutlet weak var enemyCalloutHealth: UILabel!
+    @IBOutlet weak var enemyCalloutPower: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapVC: viewDidLoad()")
@@ -41,7 +48,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.firebase = Database.database().reference()
 
         // Obtain the User from the TabBarVC
-        let tabBarVC = tabBarController as! TabBarVC
+        let tabBarVC = self.tabBarController as! TabBarVC
         self.user = tabBarVC.user
         
         // Set up map
@@ -54,6 +61,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager?.delegate = self
         self.locationManager?.startUpdatingLocation()
+        
+        enemyCallout.layer.cornerRadius = 10
+        enemyCallout.isHidden = true;
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -78,12 +88,48 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            // annotationView!.canShowCallout = true
+            // annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         } else {
             annotationView!.annotation = annotation
         }
         return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.enemyCallout.isHidden = false
+        
+        let enemyAnnotation = view.annotation as! EnemyAnnotation
+        let enemy = enemyAnnotation.enemy
+        self.selectedEnemy = enemy
+        
+        self.enemyCalloutName.text = enemy.name
+        self.enemyCalloutHealth.text = "Health: \(enemy.health)"
+        self.enemyCalloutPower.text = "Power: \(enemy.power)"
+        
+        let coordinate = enemyAnnotation.coordinate
+        self.mapOutlet.setCenter(coordinate, animated: true)
+    }
+    
+    @IBAction func battleAction(_ sender: UIButton) {
+        performSegue(withIdentifier: "BattleSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "BattleSegue" {
+            let gameVC = segue.destination as! GameViewController
+            gameVC.user = self.user
+            gameVC.enemy = self.selectedEnemy
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        // location is relative to the current view
+        // do something with the touched point
+        if touch?.view != enemyCallout {
+            enemyCallout.isHidden = true
+        }
     }
     
     func setUpAnnotations() {
@@ -108,6 +154,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 let enemyLatitude = child.childSnapshot(forPath: "latitude").value as! Double
                 let enemyLongitude = child.childSnapshot(forPath: "longitude").value as! Double
                 let enemyHealth = child.childSnapshot(forPath: "health").value as! Double
+                let enemyPower = child.childSnapshot(forPath: "power").value as! Double
 
                 // Get CLLocation from enemy and user coordinates
                 let userLatitude = self.userLocation!.latitude
@@ -118,7 +165,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
                 if (distance <= VIEW_DISTANCE) {
-                    let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, enemyID: enemyID!)
+                    let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, enemyID: enemyID!, power: enemyPower)
                     enemyList.append(enemy)
                 }
                 
