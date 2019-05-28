@@ -87,28 +87,29 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            // annotationView!.canShowCallout = true
-            // annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = false
         } else {
             annotationView!.annotation = annotation
         }
+        annotationView!.image = UIImage(named: "aegis_annotation")
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        self.enemyCallout.isHidden = false
-        
-        let enemyAnnotation = view.annotation as! EnemyAnnotation
-        let enemy = enemyAnnotation.enemy
-        self.selectedEnemy = enemy
-        
-        self.enemyCalloutName.text = enemy.name
-        self.enemyCalloutHealth.text = "Health: \(enemy.health)"
-        self.enemyCalloutPower.text = "Power: \(enemy.power)"
-        
-        let coordinate = enemyAnnotation.coordinate
-        self.mapOutlet.setCenter(coordinate, animated: true)
+        if let enemyAnnotation = view.annotation as? EnemyAnnotation {
+            self.enemyCallout.isHidden = false
+
+            let enemy = enemyAnnotation.enemy
+            self.selectedEnemy = enemy
+            
+            self.enemyCalloutName.text = enemy.name
+            self.enemyCalloutHealth.text = "Health: \(enemy.health)"
+            self.enemyCalloutPower.text = "Power: \(enemy.power)"
+            
+            let coordinate = enemyAnnotation.coordinate
+            self.mapOutlet.setCenter(coordinate, animated: true)
+        }
     }
     
     @IBAction func battleAction(_ sender: UIButton) {
