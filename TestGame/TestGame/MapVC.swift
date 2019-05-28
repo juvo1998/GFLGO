@@ -83,33 +83,44 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is EnemyAnnotation else { return nil }
-        let identifier = "Annotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = false
+        guard annotation is EnemyAnnotation || annotation is MKUserLocation else { return nil }
+        
+        if(annotation.isEqual(self.mapOutlet.userLocation)) {
+            let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "UserAnnotationID")
+            annotationView.image = UIImage(named: "cms_annotation")
+            return annotationView
+            
         } else {
-            annotationView!.annotation = annotation
+            let identifier = "EnemyAnnotationID"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = false
+            } else {
+                annotationView!.annotation = annotation
+            }
+            annotationView!.image = UIImage(named: "aegis_annotation")
+            return annotationView
         }
-        annotationView!.image = UIImage(named: "aegis_annotation")
-        return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let enemyAnnotation = view.annotation as? EnemyAnnotation {
-            self.enemyCallout.isHidden = false
-
-            let enemy = enemyAnnotation.enemy
-            self.selectedEnemy = enemy
-            
-            self.enemyCalloutName.text = enemy.name
-            self.enemyCalloutHealth.text = "Health: \(enemy.health)"
-            self.enemyCalloutPower.text = "Power: \(enemy.power)"
-            
-            let coordinate = enemyAnnotation.coordinate
-            self.mapOutlet.setCenter(coordinate, animated: true)
+        if view.reuseIdentifier == "EnemyAnnotationID" {
+            if let enemyAnnotation = view.annotation as? EnemyAnnotation {
+                self.enemyCallout.isHidden = false
+                
+                let enemy = enemyAnnotation.enemy
+                self.selectedEnemy = enemy
+                
+                self.enemyCalloutName.text = enemy.name
+                self.enemyCalloutHealth.text = "Health: \(enemy.health)"
+                self.enemyCalloutPower.text = "Power: \(enemy.power)"
+                
+                let coordinate = enemyAnnotation.coordinate
+                self.mapOutlet.setCenter(coordinate, animated: true)
+            }
         }
+        
     }
     
     @IBAction func battleAction(_ sender: UIButton) {
