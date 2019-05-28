@@ -11,23 +11,48 @@ import SpriteKit
 
 class ButtonNode: SKNode {
     
-    var defaultState: SKSpriteNode
-    var activeState: SKSpriteNode
+    var mode: String // either "SPRITE" or "LABEL"
+    
+    var defaultStateSprite: SKSpriteNode?
+    var activeStateSprite: SKSpriteNode?
+    
+    var defaultStateLabel: SKLabelNode?
+    var activeStateLabel: SKLabelNode?
+    
     var event: () -> Void
     
+    // Create button with images (Sprite)
     init(defaultStateImage: String, activeStateImage: String, event: @escaping () -> Void) {
         // Set properties
-        self.defaultState = SKSpriteNode(imageNamed: defaultStateImage)
-        self.activeState = SKSpriteNode(imageNamed: activeStateImage)
+        self.mode = "SPRITE"
+        self.defaultStateSprite = SKSpriteNode(imageNamed: defaultStateImage)
+        self.activeStateSprite = SKSpriteNode(imageNamed: activeStateImage)
         self.event = event
         
-        self.activeState.isHidden = true
+        self.activeStateSprite!.isHidden = true
         
         super.init()
         
         self.isUserInteractionEnabled = true
-        addChild(self.defaultState)
-        addChild(self.activeState)
+        addChild(self.defaultStateSprite!)
+        addChild(self.activeStateSprite!)
+    }
+    
+    // Create buttons with text
+    init(defaultStateText: String, activeStateText: String, event: @escaping () -> Void) {
+        // Set properties
+        self.mode = "LABEL"
+        self.defaultStateLabel = SKLabelNode(text: defaultStateText)
+        self.activeStateLabel = SKLabelNode(text: activeStateText)
+        self.event = event
+        
+        self.activeStateLabel!.isHidden = true
+        
+        super.init()
+        
+        self.isUserInteractionEnabled = true
+        addChild(self.defaultStateLabel!)
+        addChild(self.activeStateLabel!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,32 +60,58 @@ class ButtonNode: SKNode {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.defaultState.isHidden = true
-        self.activeState.isHidden = false
+        if self.mode == "SPRITE" {
+            self.defaultStateSprite!.isHidden = true
+            self.activeStateSprite!.isHidden = false
+        } else { // self.mode == "LABEL"
+            self.defaultStateLabel!.isHidden = true
+            self.activeStateLabel!.isHidden = false
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var touch: UITouch = touches.first!
-        var location: CGPoint = touch.location(in: self)
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.location(in: self)
         
-        if self.defaultState.contains(location) {
-            self.defaultState.isHidden = true
-            self.activeState.isHidden = false
-        } else {
-            self.defaultState.isHidden = false
-            self.activeState.isHidden = true
+        if self.mode == "SPRITE" {
+            if self.defaultStateSprite!.contains(location) {
+                self.defaultStateSprite!.isHidden = true
+                self.activeStateSprite!.isHidden = false
+            } else {
+                self.defaultStateSprite!.isHidden = false
+                self.activeStateSprite!.isHidden = true
+            }
+            
+        } else { // self.mode == "LABEL"
+            if self.defaultStateLabel!.contains(location) {
+                self.defaultStateLabel!.isHidden = true
+                self.activeStateLabel!.isHidden = false
+            } else {
+                self.defaultStateLabel!.isHidden = false
+                self.activeStateLabel!.isHidden = true
+            }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var touch: UITouch = touches.first!
-        var location: CGPoint = touch.location(in: self)
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.location(in: self)
         
-        if self.defaultState.contains(location) {
-            self.event()
+        if self.mode == "SPRITE" {
+            if self.defaultStateSprite!.contains(location) {
+                self.event()
+            }
+            
+            self.defaultStateSprite!.isHidden = false
+            self.activeStateSprite!.isHidden = true
+            
+        } else { // self.mode == "LABEL"
+            if self.defaultStateLabel!.contains(location) {
+                self.event()
+            }
+            
+            self.defaultStateLabel!.isHidden = false
+            self.activeStateLabel!.isHidden = true
         }
-        
-        self.defaultState.isHidden = false
-        self.activeState.isHidden = true
     }
 }
