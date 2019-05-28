@@ -15,7 +15,7 @@
             <objects>
                 <viewController storyboardIdentifier="LoginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IZp-Sd-OTD" customClass="LoginVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CbQ-bi-C8S">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="690"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="99y-dS-FFm">
@@ -28,7 +28,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8W-rI-WFV">
-                                <rect key="frame" x="188" y="428" width="38" height="30"/>
+                                <rect key="frame" x="188" y="531" width="38" height="30"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="loginAction:" destination="IZp-Sd-OTD" eventType="touchUpInside" id="y06-ri-Sox"/>
@@ -247,9 +247,6 @@
                             <outlet property="delegate" destination="pfd-AA-kO3" id="SUf-Rh-XIb"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="IZp-Sd-OTD" kind="show" identifier="LoginSegue" id="wkA-zf-krd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiI-S7-830" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

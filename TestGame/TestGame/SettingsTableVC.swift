@@ -23,7 +23,8 @@ class SettingsTableVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.row == 2 {
-            performSegue(withIdentifier: "LoginSegue", sender: self)
+            // performSegue(withIdentifier: "LoginSegue", sender: self)
+            dismiss(animated: true, completion: nil)
         }
     }
 }

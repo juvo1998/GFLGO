@@ -46,7 +46,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.player.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.3)
+        self.player.position = CGPoint(x: self.size.width * 0.3, y: self.size.height * 0.8)
         addChild(player)
     }
     
