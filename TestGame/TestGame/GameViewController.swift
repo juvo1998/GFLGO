@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GameEscapeDelegate {
     
     var user: User?
     var enemy: Enemy?
@@ -48,6 +48,7 @@ class GameViewController: UIViewController {
         
         let scene = GameScene(size: self.view.bounds.size)
         let skView = self.view as! SKView
+        scene.gameEscapeDelegate = self as GameEscapeDelegate
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .resizeFill
@@ -68,5 +69,9 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func escapeToMap() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
