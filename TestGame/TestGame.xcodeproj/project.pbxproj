@@ -13,10 +13,12 @@
 		3A22F7D2229870D4003D60CC /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22F7D1229870D4003D60CC /* UserVC.swift */; };
 		3A22F7D422988E78003D60CC /* EnemyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22F7D322988E78003D60CC /* EnemyAnnotation.swift */; };
 		3A22F7D622988F58003D60CC /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22F7D522988F58003D60CC /* Enemy.swift */; };
-		3A3A5C77229DB3C4009496E2 /* cms.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3A5C76229DB3C4009496E2 /* cms.png */; };
-		3A3A5C85229DCBFB009496E2 /* aegis_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3A5C84229DCBFB009496E2 /* aegis_annotation.png */; };
-		3A3A5C89229DDE39009496E2 /* cms_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3A5C88229DDE39009496E2 /* cms_annotation.png */; };
 		3A3A5C8B229DE688009496E2 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A5C8A229DE688009496E2 /* ButtonNode.swift */; };
+		3A3D9072229F10530018C2F9 /* cms_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D906E229F10520018C2F9 /* cms_annotation.png */; };
+		3A3D9073229F10530018C2F9 /* cms.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D906F229F10520018C2F9 /* cms.png */; };
+		3A3D9074229F10530018C2F9 /* aegis_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9070229F10520018C2F9 /* aegis_annotation.png */; };
+		3A3D9075229F10530018C2F9 /* aegis.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9071229F10520018C2F9 /* aegis.png */; };
+		3A3D9077229F13A30018C2F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */; };
 		3A97A9DE22970A9100665DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97A9DD22970A9100665DB4 /* AppDelegate.swift */; };
 		3A97A9E022970A9100665DB4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A97A9DF22970A9100665DB4 /* GameScene.sks */; };
 		3A97A9E222970A9100665DB4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A97A9E122970A9100665DB4 /* Actions.sks */; };
@@ -31,7 +33,6 @@
 		3A97AA5422972DDF00665DB4 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97AA5322972DDF00665DB4 /* TabBarVC.swift */; };
 		3A97AA562297334B00665DB4 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97AA552297334B00665DB4 /* SettingsVC.swift */; };
 		3A97AA58229741C500665DB4 /* SettingsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97AA57229741C500665DB4 /* SettingsTableVC.swift */; };
-		3AB0C9942297B16C002C007B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3AB0C9932297B16C002C007B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,10 +58,12 @@
 		3A22F7D1229870D4003D60CC /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		3A22F7D322988E78003D60CC /* EnemyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnnotation.swift; sourceTree = "<group>"; };
 		3A22F7D522988F58003D60CC /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
-		3A3A5C76229DB3C4009496E2 /* cms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cms.png; path = ../../../../../Desktop/cms.png; sourceTree = "<group>"; };
-		3A3A5C84229DCBFB009496E2 /* aegis_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = aegis_annotation.png; path = ../../../../../Desktop/aegis_annotation.png; sourceTree = "<group>"; };
-		3A3A5C88229DDE39009496E2 /* cms_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cms_annotation.png; path = ../../../../../Desktop/cms_annotation.png; sourceTree = "<group>"; };
 		3A3A5C8A229DE688009496E2 /* ButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
+		3A3D906E229F10520018C2F9 /* cms_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cms_annotation.png; sourceTree = "<group>"; };
+		3A3D906F229F10520018C2F9 /* cms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cms.png; sourceTree = "<group>"; };
+		3A3D9070229F10520018C2F9 /* aegis_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aegis_annotation.png; sourceTree = "<group>"; };
+		3A3D9071229F10520018C2F9 /* aegis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aegis.png; sourceTree = "<group>"; };
+		3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A97A9DA22970A9100665DB4 /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A97A9DD22970A9100665DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A97A9DF22970A9100665DB4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -81,7 +84,6 @@
 		3A97AA5322972DDF00665DB4 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		3A97AA552297334B00665DB4 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		3A97AA57229741C500665DB4 /* SettingsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableVC.swift; sourceTree = "<group>"; };
-		3AB0C9932297B16C002C007B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AEF969C44006AE7DBE1D16A1 /* Pods-TestGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGame.release.xcconfig"; path = "Target Support Files/Pods-TestGame/Pods-TestGame.release.xcconfig"; sourceTree = "<group>"; };
 		D6BC8021F073F0BD94549998 /* Pods_TestGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F957ABA8C8D4F3230A9330EF /* Pods-TestGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGame.debug.xcconfig"; path = "Target Support Files/Pods-TestGame/Pods-TestGame.debug.xcconfig"; sourceTree = "<group>"; };
@@ -157,10 +159,11 @@
 				3A97A9EA22970A9300665DB4 /* Assets.xcassets */,
 				3A97A9EC22970A9300665DB4 /* LaunchScreen.storyboard */,
 				3A97A9EF22970A9300665DB4 /* Info.plist */,
-				3AB0C9932297B16C002C007B /* GoogleService-Info.plist */,
-				3A3A5C88229DDE39009496E2 /* cms_annotation.png */,
-				3A3A5C84229DCBFB009496E2 /* aegis_annotation.png */,
-				3A3A5C76229DB3C4009496E2 /* cms.png */,
+				3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */,
+				3A3D9070229F10520018C2F9 /* aegis_annotation.png */,
+				3A3D9071229F10520018C2F9 /* aegis.png */,
+				3A3D906E229F10520018C2F9 /* cms_annotation.png */,
+				3A3D906F229F10520018C2F9 /* cms.png */,
 			);
 			path = TestGame;
 			sourceTree = "<group>";
@@ -308,13 +311,14 @@
 			files = (
 				3A97A9E922970A9100665DB4 /* Main.storyboard in Resources */,
 				3A97A9E022970A9100665DB4 /* GameScene.sks in Resources */,
-				3A3A5C85229DCBFB009496E2 /* aegis_annotation.png in Resources */,
-				3A3A5C77229DB3C4009496E2 /* cms.png in Resources */,
+				3A3D9074229F10530018C2F9 /* aegis_annotation.png in Resources */,
 				3A97A9EB22970A9300665DB4 /* Assets.xcassets in Resources */,
 				3A97A9EE22970A9300665DB4 /* LaunchScreen.storyboard in Resources */,
 				3A97A9E222970A9100665DB4 /* Actions.sks in Resources */,
-				3AB0C9942297B16C002C007B /* GoogleService-Info.plist in Resources */,
-				3A3A5C89229DDE39009496E2 /* cms_annotation.png in Resources */,
+				3A3D9073229F10530018C2F9 /* cms.png in Resources */,
+				3A3D9077229F13A30018C2F9 /* GoogleService-Info.plist in Resources */,
+				3A3D9075229F10530018C2F9 /* aegis.png in Resources */,
+				3A3D9072229F10530018C2F9 /* cms_annotation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
