@@ -56,19 +56,36 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         mapOutlet.delegate = self
         mapOutlet.showsUserLocation = true
         
+        enemyCallout.layer.cornerRadius = 10
+        enemyCallout.isHidden = true;
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("MapVC: viewWillAppear()")
+        
         // Obtain the location manager from the TabBarVC
+        let tabBarVC = self.tabBarController as! TabBarVC
         self.locationManager = tabBarVC.locationManager
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager?.delegate = self
         self.locationManager?.startUpdatingLocation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        print("MapVC: viewDidDisappear()")
         
-        enemyCallout.layer.cornerRadius = 10
-        enemyCallout.isHidden = true;
+        self.locationManager?.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("MapVC: didUpdateLocations")
         self.userLocation = locations.last!.coordinate
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Map didFailWithError: \(error)")
     }
     
     @IBAction func centerAction(_ sender: UIButton) {

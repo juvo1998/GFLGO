@@ -50,15 +50,34 @@ class GameScene: SKScene {
         self.player.position = CGPoint(x: self.size.width * 0.3, y: self.size.height * 0.8)
         addChild(player)
         
+        /*
         let button = ButtonNode(defaultStateImage: "cms_annotation", activeStateImage: "aegis_annotation") {
             print("Button pressed!")
         }
         button.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
         addChild(button)
+        */
+        
+        /*
+        let escapeButton = ButtonNode(defaultStateText: "Escape!", activeStateText: "Escaping...") {
+            print("Trying to escape...")
+            self.escape()
+        }
+        escapeButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
+        addChild(escapeButton)
+        */
+        
+        let testLabel = SKLabelNode(text: "hi")
+        testLabel.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
+        addChild(testLabel)
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
+    }
+    
+    func escape() {
+        self.view?.removeFromSuperview()
     }
 }
