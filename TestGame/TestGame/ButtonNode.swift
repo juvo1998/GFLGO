@@ -9,9 +9,20 @@
 import Foundation
 import SpriteKit
 
+enum ButtonType {
+    case sprite
+    case label
+}
+
+enum ButtonState {
+    case standby
+    case active
+    case both
+}
+
 class ButtonNode: SKNode {
     
-    var mode: String // either "SPRITE" or "LABEL"
+    var type: ButtonType // either "SPRITE" or "LABEL"
     
     var defaultStateSprite: SKSpriteNode?
     var activeStateSprite: SKSpriteNode?
@@ -24,7 +35,7 @@ class ButtonNode: SKNode {
     // Create button with images (Sprite)
     init(defaultStateImage: String, activeStateImage: String, event: @escaping () -> Void) {
         // Set properties
-        self.mode = "SPRITE"
+        self.type = .sprite
         self.defaultStateSprite = SKSpriteNode(imageNamed: defaultStateImage)
         self.activeStateSprite = SKSpriteNode(imageNamed: activeStateImage)
         self.event = event
@@ -41,7 +52,7 @@ class ButtonNode: SKNode {
     // Create buttons with text
     init(defaultStateText: String, activeStateText: String, color: UIColor, event: @escaping () -> Void) {
         // Set properties
-        self.mode = "LABEL"
+        self.type = .label
         self.defaultStateLabel = SKLabelNode(text: defaultStateText)
         self.activeStateLabel = SKLabelNode(text: activeStateText)
         self.event = event
@@ -64,10 +75,10 @@ class ButtonNode: SKNode {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.mode == "SPRITE" {
+        if self.type == .sprite {
             self.defaultStateSprite!.isHidden = true
             self.activeStateSprite!.isHidden = false
-        } else { // self.mode == "LABEL"
+        } else { // self.type == .label
             self.defaultStateLabel!.isHidden = true
             self.activeStateLabel!.isHidden = false
         }
@@ -77,7 +88,7 @@ class ButtonNode: SKNode {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.location(in: self)
         
-        if self.mode == "SPRITE" {
+        if self.type == .sprite {
             if self.defaultStateSprite!.contains(location) {
                 self.defaultStateSprite!.isHidden = true
                 self.activeStateSprite!.isHidden = false
@@ -86,7 +97,7 @@ class ButtonNode: SKNode {
                 self.activeStateSprite!.isHidden = true
             }
             
-        } else { // self.mode == "LABEL"
+        } else { // self.type == .label
             if self.defaultStateLabel!.contains(location) {
                 self.defaultStateLabel!.isHidden = true
                 self.activeStateLabel!.isHidden = false
@@ -101,7 +112,7 @@ class ButtonNode: SKNode {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.location(in: self)
         
-        if self.mode == "SPRITE" {
+        if self.type == .sprite {
             if self.defaultStateSprite!.contains(location) {
                 self.event()
             }
@@ -109,13 +120,40 @@ class ButtonNode: SKNode {
             self.defaultStateSprite!.isHidden = false
             self.activeStateSprite!.isHidden = true
             
-        } else { // self.mode == "LABEL"
+        } else { // self.type == .label
             if self.defaultStateLabel!.contains(location) {
                 self.event()
             }
             
             self.defaultStateLabel!.isHidden = false
             self.activeStateLabel!.isHidden = true
+        }
+    }
+
+    func changeFontColor(to color: UIColor, for state: ButtonState) {
+        if state == .standby || state == .both {
+            self.defaultStateLabel!.fontColor = color
+        }
+        if state == .active || state == .both {
+            self.activeStateLabel!.fontColor = color
+        }
+    }
+    
+    func changeFontName(to name: String, for state: ButtonState) {
+        if state == .standby || state == .both {
+            self.defaultStateLabel!.fontName = name
+        }
+        if state == .active || state == .both {
+            self.activeStateLabel!.fontName = name
+        }
+    }
+    
+    func changeFontSize(to size: Double, for state: ButtonState) {
+        if state == .standby || state == .both {
+            self.defaultStateLabel!.fontSize = CGFloat(size)
+        }
+        if state == .active || state == .both {
+            self.activeStateLabel!.fontSize = CGFloat(size)
         }
     }
 }

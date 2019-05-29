@@ -61,6 +61,8 @@ class GameScene: SKScene {
             self.gameEscapeDelegate?.escapeToMap()
         }
         escapeButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
+        escapeButton.changeFontColor(to: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), for: .standby)
+        escapeButton.changeFontColor(to: #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1), for: .active)
         addChild(escapeButton)
     }
     
