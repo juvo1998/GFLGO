@@ -58,18 +58,12 @@ class GameScene: SKScene {
         addChild(button)
         */
         
-        /*
-        let escapeButton = ButtonNode(defaultStateText: "Escape!", activeStateText: "Escaping...") {
+        let escapeButton = ButtonNode(defaultStateText: "Escape!", activeStateText: "Escaping...", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
             print("Trying to escape...")
             self.escape()
         }
         escapeButton.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
         addChild(escapeButton)
-        */
-        
-        let testLabel = SKLabelNode(text: "hi")
-        testLabel.position = CGPoint(x: self.size.width * 0.5, y: self.size.height * 0.5)
-        addChild(testLabel)
     }
     
     override func update(_ currentTime: TimeInterval) {

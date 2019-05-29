@@ -39,7 +39,7 @@ class ButtonNode: SKNode {
     }
     
     // Create buttons with text
-    init(defaultStateText: String, activeStateText: String, event: @escaping () -> Void) {
+    init(defaultStateText: String, activeStateText: String, color: UIColor, event: @escaping () -> Void) {
         // Set properties
         self.mode = "LABEL"
         self.defaultStateLabel = SKLabelNode(text: defaultStateText)
@@ -51,6 +51,10 @@ class ButtonNode: SKNode {
         super.init()
         
         self.isUserInteractionEnabled = true
+        
+        self.defaultStateLabel!.fontColor = color
+        self.activeStateLabel!.fontColor = color
+        
         addChild(self.defaultStateLabel!)
         addChild(self.activeStateLabel!)
     }
