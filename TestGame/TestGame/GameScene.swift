@@ -29,16 +29,21 @@ class GameScene: SKScene {
     var currentUserHealth = 0.0 {
         didSet {
             let maxHealth = user!.health
-            userHealthLabel?.text = "Health: \(currentUserHealth) / \(maxHealth)"
+            self.userHealthLabel?.text = "Health: \(self.currentUserHealth) / \(maxHealth)"
+            self.userHealthBar.currentHealth = self.currentUserHealth
         }
     }
     
     var currentEnemyHealth = 0.0 {
         didSet {
             let maxHealth = enemy!.health
-            enemyHealthLabel?.text = "Health: \(currentEnemyHealth) / \(maxHealth)"
+            self.enemyHealthLabel?.text = "Health: \(currentEnemyHealth) / \(maxHealth)"
+            self.enemyHealthBar.currentHealth = self.currentEnemyHealth
         }
     }
+    
+    var userHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1)
+    var enemyHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1)
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -95,6 +100,13 @@ class GameScene: SKScene {
         userHealthLabel!.position = CGPoint(x: userHealthLabelX, y: userHealthLabelY)
         addChild(userHealthLabel!)
         
+        // User health bar
+        self.userHealthBar = HealthBarNode(currentHealth: self.currentUserHealth, maxHealth: self.user!.health)
+        let userHealthBarX = self.userNode.position.x - (self.userHealthBar.frontBar.size.width / 2.0)
+        let userHealthBarY = self.userNode.position.y + 120
+        self.userHealthBar.position = CGPoint(x: userHealthBarX, y: userHealthBarY)
+        addChild(self.userHealthBar)
+        
         // Enemy node
         self.enemyNode.xScale *= 0.8
         self.enemyNode.yScale *= 0.8
@@ -112,6 +124,14 @@ class GameScene: SKScene {
         let enemyHealthLabelY = self.enemyNode.position.y + 100
         enemyHealthLabel!.position = CGPoint(x: enemyHealthLabelX, y: enemyHealthLabelY)
         addChild(enemyHealthLabel!)
+        
+        // Enemy health bar
+        self.enemyHealthBar = HealthBarNode(currentHealth: self.currentEnemyHealth, maxHealth: self.enemy!.health)
+        let enemyHealthBarX = self.enemyNode.position.x - (self.enemyHealthBar.frontBar.size.width / 2)
+        let enemyHealthBarY = self.enemyNode.position.y + 120
+        self.enemyHealthBar.position = CGPoint(x: enemyHealthBarX, y: enemyHealthBarY)
+
+        addChild(self.enemyHealthBar)
         
         // Escape button
         let escapeButton = ButtonNode(defaultStateText: "Escape!", activeStateText: "Escaping...", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
