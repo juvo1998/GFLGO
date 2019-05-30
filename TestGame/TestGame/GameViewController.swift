@@ -49,6 +49,8 @@ class GameViewController: UIViewController, GameEscapeDelegate {
         let scene = GameScene(size: self.view.bounds.size)
         let skView = self.view as! SKView
         scene.gameEscapeDelegate = self as GameEscapeDelegate
+        scene.user = self.user
+        scene.enemy = self.enemy
         skView.showsNodeCount = true
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .resizeFill
