@@ -29,7 +29,6 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
         // Set up Firebase
         self.firebase = Database.database().reference()
         
-        
         // Set up location services
         self.locationManager.delegate = self
         if !(CLLocationManager.authorizationStatus() == .authorizedAlways) &&
@@ -43,6 +42,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
             let tabBarVC = segue.destination as! TabBarVC
             tabBarVC.user = self.user
             tabBarVC.locationManager = self.locationManager
+            
+        } else if segue.identifier == "SignupSegue" {
+            // Any preparations?
         }
     }
     
@@ -50,6 +52,10 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
         let usernameText = usernameOutlet.text!
         let passwordText = passwordOutlet.text!
         loginIfValid(usernameText: usernameText, passwordText: passwordText)
+    }
+    
+    @IBAction func signupAction(_ sender: UIButton) {
+        performSegue(withIdentifier: "SignupSegue", sender: self)
     }
     
     func loginIfValid(usernameText: String, passwordText: String) {

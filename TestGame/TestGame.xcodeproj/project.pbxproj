@@ -34,6 +34,7 @@
 		3A97AA562297334B00665DB4 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97AA552297334B00665DB4 /* SettingsVC.swift */; };
 		3A97AA58229741C500665DB4 /* SettingsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97AA57229741C500665DB4 /* SettingsTableVC.swift */; };
 		3AD620EF22A073F700EBD164 /* HealthBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD620EE22A073F700EBD164 /* HealthBarNode.swift */; };
+		3AD620F122A07F7400EBD164 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD620F022A07F7400EBD164 /* SignupVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		3A97AA552297334B00665DB4 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		3A97AA57229741C500665DB4 /* SettingsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableVC.swift; sourceTree = "<group>"; };
 		3AD620EE22A073F700EBD164 /* HealthBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthBarNode.swift; sourceTree = "<group>"; };
+		3AD620F022A07F7400EBD164 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
 		AEF969C44006AE7DBE1D16A1 /* Pods-TestGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGame.release.xcconfig"; path = "Target Support Files/Pods-TestGame/Pods-TestGame.release.xcconfig"; sourceTree = "<group>"; };
 		D6BC8021F073F0BD94549998 /* Pods_TestGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F957ABA8C8D4F3230A9330EF /* Pods-TestGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestGame.debug.xcconfig"; path = "Target Support Files/Pods-TestGame/Pods-TestGame.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				3A22F7CD229865BA003D60CC /* User.swift */,
 				3A22F7D522988F58003D60CC /* Enemy.swift */,
 				3A97AA512297293700665DB4 /* LoginVC.swift */,
+				3AD620F022A07F7400EBD164 /* SignupVC.swift */,
 				3A97AA5322972DDF00665DB4 /* TabBarVC.swift */,
 				3A22F7CF22986D77003D60CC /* MapVC.swift */,
 				3A22F7D322988E78003D60CC /* EnemyAnnotation.swift */,
@@ -394,6 +397,7 @@
 				3A97A9E622970A9100665DB4 /* GameViewController.swift in Sources */,
 				3A97AA5422972DDF00665DB4 /* TabBarVC.swift in Sources */,
 				3AD620EF22A073F700EBD164 /* HealthBarNode.swift in Sources */,
+				3AD620F122A07F7400EBD164 /* SignupVC.swift in Sources */,
 				3A97AA522297293700665DB4 /* LoginVC.swift in Sources */,
 				3A22F7CE229865BA003D60CC /* User.swift in Sources */,
 				3A97AA58229741C500665DB4 /* SettingsTableVC.swift in Sources */,

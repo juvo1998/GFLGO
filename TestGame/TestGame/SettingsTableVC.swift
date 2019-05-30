@@ -24,7 +24,7 @@ class SettingsTableVC: UITableViewController {
         
         if indexPath.row == 2 {
             // performSegue(withIdentifier: "LoginSegue", sender: self)
-            dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }
