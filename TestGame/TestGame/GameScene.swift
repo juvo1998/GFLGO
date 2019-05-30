@@ -17,6 +17,8 @@ class GameScene: SKScene {
     
     var gameEscapeDelegate: GameEscapeDelegate?
     
+    var attackButton: ButtonNode?
+    
     // User and Enemy should already be created by GameViewController
     var user: User?
     var enemy: Enemy?
@@ -122,20 +124,22 @@ class GameScene: SKScene {
         addChild(escapeButton)
         
         // Attack button
-        let attackButton = ButtonNode(defaultStateText: "Attack!", activeStateText: "Attack!", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
+        self.attackButton = ButtonNode(defaultStateText: "Attack!", activeStateText: "Attack!", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
             self.currentEnemyHealth -= self.user!.power // User attacks Enemy
             
             // Wait one second and then Enemy attacks User
             let waitOne = SKAction.wait(forDuration: 1)
+            self.attackButton?.isHidden = true
             self.enemyHealthLabel?.run(waitOne, completion: {
                 self.currentUserHealth -= self.enemy!.power
+                self.attackButton?.isHidden = false
             })
         }
         
         let attackButtonX = escapeButton.position.x
         let attackButtonY = escapeButton.position.y + 100
-        attackButton.position = CGPoint(x: attackButtonX, y: attackButtonY)
-        addChild(attackButton)
+        self.attackButton!.position = CGPoint(x: attackButtonX, y: attackButtonY)
+        addChild(self.attackButton!)
     }
     
     override func update(_ currentTime: TimeInterval) {
