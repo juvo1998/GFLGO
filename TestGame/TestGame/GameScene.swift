@@ -42,8 +42,8 @@ class GameScene: SKScene {
         }
     }
     
-    var userHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1)
-    var enemyHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1)
+    var userHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1, width: 1)
+    var enemyHealthBar = HealthBarNode(currentHealth: 0, maxHealth: 1, width: 1)
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -101,7 +101,7 @@ class GameScene: SKScene {
         addChild(userHealthLabel!)
         
         // User health bar
-        self.userHealthBar = HealthBarNode(currentHealth: self.currentUserHealth, maxHealth: self.user!.health)
+        self.userHealthBar = HealthBarNode(currentHealth: self.currentUserHealth, maxHealth: self.user!.health, width: 120)
         let userHealthBarX = self.userNode.position.x - (self.userHealthBar.frontBar.size.width / 2.0)
         let userHealthBarY = self.userNode.position.y + 120
         self.userHealthBar.position = CGPoint(x: userHealthBarX, y: userHealthBarY)
@@ -126,7 +126,7 @@ class GameScene: SKScene {
         addChild(enemyHealthLabel!)
         
         // Enemy health bar
-        self.enemyHealthBar = HealthBarNode(currentHealth: self.currentEnemyHealth, maxHealth: self.enemy!.health)
+        self.enemyHealthBar = HealthBarNode(currentHealth: self.currentEnemyHealth, maxHealth: self.enemy!.health, width: 120)
         let enemyHealthBarX = self.enemyNode.position.x - (self.enemyHealthBar.frontBar.size.width / 2)
         let enemyHealthBarY = self.enemyNode.position.y + 120
         self.enemyHealthBar.position = CGPoint(x: enemyHealthBarX, y: enemyHealthBarY)
