@@ -19,6 +19,8 @@ class GameScene: SKScene {
     
     var attackButton: ButtonNode?
     
+    let battleCleared = false
+    
     // User and Enemy should already be created by GameViewController
     var user: User?
     var enemy: Enemy?
@@ -135,6 +137,7 @@ class GameScene: SKScene {
         
         // Escape button
         let escapeButton = ButtonNode(defaultStateText: "Escape!", activeStateText: "Escaping...", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
+            print("escaping?")
             self.gameEscapeDelegate?.escapeToMap()
         }
         
@@ -146,14 +149,17 @@ class GameScene: SKScene {
         // Attack button
         self.attackButton = ButtonNode(defaultStateText: "Attack!", activeStateText: "Attack!", color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)) {
             self.currentEnemyHealth -= self.user!.power // User attacks Enemy
-            
-            // Wait one second and then Enemy attacks User
-            let waitOne = SKAction.wait(forDuration: 1)
             self.attackButton?.isHidden = true
-            self.enemyHealthLabel?.run(waitOne, completion: {
-                self.currentUserHealth -= self.enemy!.power
-                self.attackButton?.isHidden = false
-            })
+            
+            // Wait one second and then Enemy attacks User, if Enemy is alive
+            if self.currentEnemyHealth > 0 {
+                let waitOne = SKAction.wait(forDuration: 1)
+                self.enemyHealthLabel?.run(waitOne, completion: {
+                    self.currentUserHealth -= self.enemy!.power
+                    self.attackButton?.isHidden = false
+                })
+            }
+            
         }
         
         let attackButtonX = escapeButton.position.x

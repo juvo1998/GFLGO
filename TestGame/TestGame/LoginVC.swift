@@ -73,14 +73,14 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
                     let validUser = User(username: username, password: password, userID: userID!, health: health, power: power)
                     self.user = validUser
                     self.performSegue(withIdentifier: "TabBarSegue", sender: self)
-                    break;
+                    return
                 }
-                
-                // If we get here, then invalid username / password
-                let alert = UIAlertController(title: "Could not verify", message: "Your username or password was entered incorrectly.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true)
             }
+            
+            // If we get here, then invalid username / password
+            let alert = UIAlertController(title: "Could not verify", message: "Your username or password was entered incorrectly.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
         }
     }
 }
