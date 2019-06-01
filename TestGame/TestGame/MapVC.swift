@@ -173,12 +173,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     func findEnemiesAroundUser(completion: @escaping (_ enemies: [Enemy]) -> ()) {
         var enemyList = [Enemy]()
-        let VIEW_DISTANCE = 1600.0
+        let VIEW_DISTANCE = 5000.0
         firebase!.child("enemies").observeSingleEvent(of: .value, with: {(snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 
                 // Grab enemy data from Firebase
-                let enemyID = Int(child.key)
+                let enemyID = String(child.key)
                 let enemyName = child.childSnapshot(forPath: "name").value as! String
                 let enemyLatitude = child.childSnapshot(forPath: "latitude").value as! Double
                 let enemyLongitude = child.childSnapshot(forPath: "longitude").value as! Double
@@ -194,12 +194,66 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
                 if (distance <= VIEW_DISTANCE) {
-                    let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, enemyID: enemyID!, power: enemyPower)
+                    print("Distance: \(distance)")
+                    let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemyList.append(enemy)
                 }
                 
                 completion(enemyList)
             }
         })
+    }
+    
+    func getRandomCoordinateAroundUser(currentCoordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+        let currentLat = currentCoordinate.latitude
+        let currentLong = currentCoordinate.longitude
+        
+        let bufferX = Double.random(in: -600...600)
+        var randomChangeX = Double.random(in: -600...600)
+        while bufferX == randomChangeX {
+            randomChangeX = Double.random(in: -600...600)
+        }
+        
+        let bufferY = Double.random(in: -600...600)
+        var randomChangeY = Double.random(in: -600...600)
+        while bufferY == randomChangeY {
+            randomChangeY = Double.random(in: -600...600)
+        }
+        
+        let latChange = randomChangeY * 0.00000900776
+        let longChange = (randomChangeX * 0.00000900776) / (cos(Double.pi * currentLat / 180))
+        
+        let newLat = currentLat + latChange
+        let newLong = currentLong + longChange
+        
+        let newCoordinate = CLLocationCoordinate2D(latitude: newLat, longitude: newLong)
+        return newCoordinate
+    }
+    
+    @IBAction func addEnemyAction(_ sender: UIButton) {
+        let enemyCoord = getRandomCoordinateAroundUser(currentCoordinate: self.userLocation!)
+        let enemyID = getUniqueEnemyID()
+        print(enemyID)
+        let newEnemy = Enemy(name: "hey", health: 30.0, location: enemyCoord, identifier: enemyID, power: 2.0)
+        addEnemyToFirebase(enemy: newEnemy)
+    }
+    
+    func addEnemyToFirebase(enemy: Enemy) {
+        firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
+            self.firebase!.child("enemies").child(enemy.identifier).setValue(enemy.identifier)
+            self.firebase!.child("enemies").child(enemy.identifier).child("name").setValue(enemy.name)
+            self.firebase!.child("enemies").child(enemy.identifier).child("health").setValue(enemy.health)
+            self.firebase!.child("enemies").child(enemy.identifier).child("power").setValue(enemy.power)
+            self.firebase!.child("enemies").child(enemy.identifier).child("latitude").setValue(enemy.latitude)
+            self.firebase!.child("enemies").child(enemy.identifier).child("longitude").setValue(enemy.longitude)
+            self.setUpAnnotations()
+        }
+    }
+    
+    func getUniqueEnemyID() -> String {
+        let time = String(Date().timeIntervalSinceReferenceDate)
+        let newTime = time.replacingOccurrences(of: ".", with: "d")
+        let enemyID = "u\(self.user!.userID)e\(newTime)"
+        return enemyID
     }
 }

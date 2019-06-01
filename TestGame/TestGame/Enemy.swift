@@ -11,7 +11,7 @@ import CoreLocation
 
 class Enemy {
     
-    var enemyID: Int
+    var identifier: String
     var name: String
     var latitude: Double
     var longitude: Double
@@ -19,26 +19,25 @@ class Enemy {
     var health: Double
     var power: Double
     
-    init(name: String, health: Double, location: CLLocationCoordinate2D, enemyID: Int, power: Double) {
-        
+    init(name: String, health: Double, location: CLLocationCoordinate2D, identifier: String, power: Double) {
         // Set up basic properties
         self.name = name
         self.latitude = location.latitude
         self.longitude = location.longitude
-        self.enemyID = enemyID
+        self.identifier = identifier
         
         // Set up stats
         self.health = health
         self.power = power
     }
     
-    init(name: String, health: Double, latitude: Double, longitude: Double, enemyID: Int, power: Double) {
+    init(name: String, health: Double, latitude: Double, longitude: Double, identifier: String, power: Double) {
         
         // Set up basic properties
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
-        self.enemyID = enemyID
+        self.identifier = identifier
         
         // Set up stats
         self.health = health

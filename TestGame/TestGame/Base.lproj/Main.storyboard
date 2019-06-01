@@ -380,6 +380,13 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="MI1-Ou-mux"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzY-cA-q0k">
+                                <rect key="frame" x="25" y="113" width="78" height="30"/>
+                                <state key="normal" title="Add Enemy"/>
+                                <connections>
+                                    <action selector="addEnemyAction:" destination="2hJ-c3-nvA" eventType="touchUpInside" id="Ptr-ep-6rS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -391,8 +398,10 @@
                             <constraint firstItem="244-VP-5uM" firstAttribute="trailing" secondItem="LwV-f0-IIM" secondAttribute="trailing" constant="25" id="RLN-zd-Uhi"/>
                             <constraint firstItem="244-VP-5uM" firstAttribute="bottom" secondItem="JjF-bC-nJB" secondAttribute="bottom" constant="420" id="S6x-tl-jt3"/>
                             <constraint firstItem="244-VP-5uM" firstAttribute="bottom" secondItem="TKk-dC-wqG" secondAttribute="bottom" id="htE-CN-6Wa"/>
+                            <constraint firstItem="vzY-cA-q0k" firstAttribute="leading" secondItem="244-VP-5uM" secondAttribute="leading" constant="25" id="ogT-OM-5q7"/>
                             <constraint firstItem="LwV-f0-IIM" firstAttribute="top" secondItem="244-VP-5uM" secondAttribute="top" constant="25" id="q1Z-H7-jVg"/>
                             <constraint firstItem="JjF-bC-nJB" firstAttribute="centerX" secondItem="TKk-dC-wqG" secondAttribute="centerX" id="rM9-0x-aBK"/>
+                            <constraint firstItem="vzY-cA-q0k" firstAttribute="top" secondItem="244-VP-5uM" secondAttribute="top" constant="25" id="yrC-8q-FLz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="244-VP-5uM"/>
                     </view>

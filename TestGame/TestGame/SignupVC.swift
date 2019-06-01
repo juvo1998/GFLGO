@@ -32,7 +32,7 @@ class SignupVC: UIViewController {
                 self.present(alert, animated: true)
                 
             } else {
-                self.storeUserToFirebase(username: self.usernameOutlet.text!)
+                self.addUserToFirebase(username: self.usernameOutlet.text!)
                 self.goToLogin()
             }
         }
@@ -60,7 +60,7 @@ class SignupVC: UIViewController {
         })
     }
     
-    func storeUserToFirebase(username: String) {
+    func addUserToFirebase(username: String) {
         firebase!.child("users").observeSingleEvent(of: .value) { (snapshot) in
             let userID = String(snapshot.childrenCount)
             let user = User(username: username, password: self.passwordOutlet.text!, userID: Int(userID)!, health: 50, power: 3.2)
