@@ -32,7 +32,6 @@ class Enemy {
     }
     
     init(name: String, health: Double, latitude: Double, longitude: Double, identifier: String, power: Double) {
-        
         // Set up basic properties
         self.name = name
         self.latitude = latitude

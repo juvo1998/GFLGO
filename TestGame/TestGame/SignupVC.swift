@@ -63,13 +63,14 @@ class SignupVC: UIViewController {
     func addUserToFirebase(username: String) {
         firebase!.child("users").observeSingleEvent(of: .value) { (snapshot) in
             let userID = String(snapshot.childrenCount)
-            let user = User(username: username, password: self.passwordOutlet.text!, userID: Int(userID)!, health: 50, power: 3.2)
+            let user = User(username: username, password: self.passwordOutlet.text!, userID: Int(userID)!, health: 50, power: 3.2, totalExp: 10)
             
             self.firebase!.child("users").child(userID).setValue(user.userID)
             self.firebase!.child("users").child(userID).child("username").setValue(user.username)
             self.firebase!.child("users").child(userID).child("password").setValue(user.password)
             self.firebase!.child("users").child(userID).child("health").setValue(user.health)
             self.firebase!.child("users").child(userID).child("power").setValue(user.power)
+            self.firebase!.child("users").child(userID).child("totalExp").setValue(user.totalExp)
         }
     }
 }

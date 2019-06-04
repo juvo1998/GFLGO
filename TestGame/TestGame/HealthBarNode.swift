@@ -19,12 +19,12 @@ class HealthBarNode: SKNode {
         didSet {
             if self.currentHealth > 0 {
                 let scaleFactor = CGFloat(self.currentHealth / self.maxHealth)
-                // self.frontBar.size.width = self.width * scaleFactor
                 let newWidth = self.width * scaleFactor
                 let resizeAction = SKAction.resize(toWidth: newWidth, duration: 1)
                 self.frontBar.run(resizeAction)
             } else { // Dead, so make the hp bar 0
-                self.frontBar.size.width = 0.0
+                let resizeAction = SKAction.resize(toWidth: 0.0, duration: 1)
+                self.frontBar.run(resizeAction)
             }
         }
     }

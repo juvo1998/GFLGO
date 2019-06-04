@@ -165,7 +165,9 @@ class GameScene: SKScene {
                 })
                 
             } else {
+                // Ememy defeated! Give rewards, etc...
                 self.removeEnemyFromFirebase()
+                self.user!.addExperience(amount: 1)
             }
         }
         
