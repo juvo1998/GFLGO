@@ -22,9 +22,20 @@ class SettingsTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        /*
         if indexPath.row == 2 {
             // performSegue(withIdentifier: "LoginSegue", sender: self)
             self.navigationController?.popViewController(animated: true)
+        }
+         */
+        
+        switch indexPath.row {
+        case 1:
+            print("change password")
+        case 2:
+            self.navigationController?.popViewController(animated: true)
+        default:
+            print("switch default")
         }
     }
 }

@@ -303,6 +303,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dcr-vq-cB5" id="qSh-sQ-mIq">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6f-a9-BOR">
+                                                    <rect key="frame" x="35" y="11" width="359" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="W6f-a9-BOR" firstAttribute="leading" secondItem="qSh-sQ-mIq" secondAttribute="leadingMargin" constant="15" id="7Xh-GI-hFW"/>
+                                                <constraint firstItem="W6f-a9-BOR" firstAttribute="top" secondItem="qSh-sQ-mIq" secondAttribute="topMargin" id="CkQ-HN-T8D"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="W6f-a9-BOR" secondAttribute="trailing" id="RdE-Nl-pKg"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="W6f-a9-BOR" secondAttribute="bottom" id="uwb-x8-Hp0"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="HNU-UM-8yM">
