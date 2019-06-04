@@ -20,10 +20,25 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     var selectedEnemy: Enemy?
     
     var locationManager: CLLocationManager?
-    var firstCenter: Bool?
+    var firstCenter = true
+    
+    /*
+     Why we use this firstCenter stuff:
+     
+     Upon first LOADING (not appearing), we need to grab the user's location. Afterward, we center on that location
+     and load the annotations. However, if we don't get the location fast enough, there will be an error with
+     centering on that location.
+     
+     To fix this, we make sure to only center the map and load the annotations when userLocation has been succesfully set.
+     However, we do this only ONCE because we do not want to keep centering everytime the location changes.
+     
+     It is perfectly fine to use centerMap() and setUpAnnotations() after the first viewDidLoad, since we have a guaranteed
+     non-nil userLocation. However, be careful about using either of these functions in viewWill/DidAppear(), since they
+     happen with viewDidLoad()
+     */
     var userLocation: CLLocationCoordinate2D? {
         didSet {
-            if firstCenter! {
+            if firstCenter {
                 centerMap()
                 setUpAnnotations()
                 firstCenter = false
@@ -52,7 +67,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.user = tabBarVC.user
         
         // Set up map
-        self.firstCenter = true
+        // self.firstCenter = true
         mapOutlet.delegate = self
         mapOutlet.showsUserLocation = true
         
@@ -70,6 +85,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager?.delegate = self
         self.locationManager?.startUpdatingLocation()
+        
+        if !firstCenter { setUpAnnotations() }
+        self.enemyCallout.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -104,7 +122,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
         if(annotation.isEqual(self.mapOutlet.userLocation)) {
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "UserAnnotationID")
-            annotationView.image = UIImage(named: "cms_annotation")
+            let buffer = UIImage(named: "cms")
+            let SCALE_RATIO: CGFloat = 0.38 // scale down for the annotation view
+            let size = CGSize(width: buffer!.size.width * SCALE_RATIO, height: buffer!.size.height * SCALE_RATIO)
+            let cmsAnnotation = resize(image: buffer!, targetSize: size)
+            annotationView.image = cmsAnnotation
             return annotationView
             
         } else {
@@ -116,7 +138,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 annotationView!.annotation = annotation
             }
-            annotationView!.image = UIImage(named: "aegis_annotation")
+            let buffer = UIImage(named: "aegis")
+            let SCALE_RATIO: CGFloat = 0.30 // scale down for the annotation view
+            let size = CGSize(width: buffer!.size.width * SCALE_RATIO, height: buffer!.size.height * SCALE_RATIO)
+            let aegisAnnotation = resize(image: buffer!, targetSize: size)
+            annotationView!.image = aegisAnnotation
             return annotationView
         }
     }
@@ -208,18 +234,21 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let currentLat = currentCoordinate.latitude
         let currentLong = currentCoordinate.longitude
         
-        let bufferX = Double.random(in: -600...600)
-        var randomChangeX = Double.random(in: -600...600)
+        let HALF_LENGTH = 600.0
+        
+        let bufferX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
+        var randomChangeX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         while bufferX == randomChangeX {
-            randomChangeX = Double.random(in: -600...600)
+            randomChangeX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         }
         
-        let bufferY = Double.random(in: -600...600)
-        var randomChangeY = Double.random(in: -600...600)
+        let bufferY = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
+        var randomChangeY = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         while bufferY == randomChangeY {
-            randomChangeY = Double.random(in: -600...600)
+            randomChangeY = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         }
         
+        // Calcuation and constants for meters -> lat and long degrees
         let latChange = randomChangeY * 0.00000900776
         let longChange = (randomChangeX * 0.00000900776) / (cos(Double.pi * currentLat / 180))
         
@@ -255,5 +284,28 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let newTime = time.replacingOccurrences(of: ".", with: "d")
         let enemyID = "u\(self.user!.userID)e\(newTime)"
         return enemyID
+    }
+    
+    func resize(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        var newSize: CGSize
+        if widthRatio > heightRatio {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }

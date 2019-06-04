@@ -14,10 +14,6 @@
 		3A22F7D422988E78003D60CC /* EnemyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22F7D322988E78003D60CC /* EnemyAnnotation.swift */; };
 		3A22F7D622988F58003D60CC /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A22F7D522988F58003D60CC /* Enemy.swift */; };
 		3A3A5C8B229DE688009496E2 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3A5C8A229DE688009496E2 /* ButtonNode.swift */; };
-		3A3D9072229F10530018C2F9 /* cms_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D906E229F10520018C2F9 /* cms_annotation.png */; };
-		3A3D9073229F10530018C2F9 /* cms.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D906F229F10520018C2F9 /* cms.png */; };
-		3A3D9074229F10530018C2F9 /* aegis_annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9070229F10520018C2F9 /* aegis_annotation.png */; };
-		3A3D9075229F10530018C2F9 /* aegis.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9071229F10520018C2F9 /* aegis.png */; };
 		3A3D9077229F13A30018C2F9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */; };
 		3A97A9DE22970A9100665DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A97A9DD22970A9100665DB4 /* AppDelegate.swift */; };
 		3A97A9E022970A9100665DB4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3A97A9DF22970A9100665DB4 /* GameScene.sks */; };
@@ -61,10 +57,6 @@
 		3A22F7D322988E78003D60CC /* EnemyAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyAnnotation.swift; sourceTree = "<group>"; };
 		3A22F7D522988F58003D60CC /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		3A3A5C8A229DE688009496E2 /* ButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
-		3A3D906E229F10520018C2F9 /* cms_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cms_annotation.png; sourceTree = "<group>"; };
-		3A3D906F229F10520018C2F9 /* cms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cms.png; sourceTree = "<group>"; };
-		3A3D9070229F10520018C2F9 /* aegis_annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aegis_annotation.png; sourceTree = "<group>"; };
-		3A3D9071229F10520018C2F9 /* aegis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aegis.png; sourceTree = "<group>"; };
 		3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A97A9DA22970A9100665DB4 /* TestGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A97A9DD22970A9100665DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,10 +158,6 @@
 				3A97A9EC22970A9300665DB4 /* LaunchScreen.storyboard */,
 				3A97A9EF22970A9300665DB4 /* Info.plist */,
 				3A3D9076229F13A20018C2F9 /* GoogleService-Info.plist */,
-				3A3D9070229F10520018C2F9 /* aegis_annotation.png */,
-				3A3D9071229F10520018C2F9 /* aegis.png */,
-				3A3D906E229F10520018C2F9 /* cms_annotation.png */,
-				3A3D906F229F10520018C2F9 /* cms.png */,
 			);
 			path = TestGame;
 			sourceTree = "<group>";
@@ -317,14 +305,10 @@
 			files = (
 				3A97A9E922970A9100665DB4 /* Main.storyboard in Resources */,
 				3A97A9E022970A9100665DB4 /* GameScene.sks in Resources */,
-				3A3D9074229F10530018C2F9 /* aegis_annotation.png in Resources */,
 				3A97A9EB22970A9300665DB4 /* Assets.xcassets in Resources */,
 				3A97A9EE22970A9300665DB4 /* LaunchScreen.storyboard in Resources */,
 				3A97A9E222970A9100665DB4 /* Actions.sks in Resources */,
-				3A3D9073229F10530018C2F9 /* cms.png in Resources */,
 				3A3D9077229F13A30018C2F9 /* GoogleService-Info.plist in Resources */,
-				3A3D9075229F10530018C2F9 /* aegis.png in Resources */,
-				3A3D9072229F10530018C2F9 /* cms_annotation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

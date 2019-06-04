@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import Firebase
 
 protocol GameEscapeDelegate {
     func escapeToMap()
@@ -16,6 +17,7 @@ protocol GameEscapeDelegate {
 class GameScene: SKScene {
     
     var gameEscapeDelegate: GameEscapeDelegate?
+    var firebase: DatabaseReference?
     
     var attackButton: ButtonNode?
     
@@ -85,6 +87,9 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         print("GameScene: didMove()")
         self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        // Firebase
+        self.firebase = Database.database().reference()
         
         // User node
         self.userNode.position = CGPoint(x: self.size.width * 0.3, y: self.size.height * 0.55)
@@ -158,8 +163,10 @@ class GameScene: SKScene {
                     self.currentUserHealth -= self.enemy!.power
                     self.attackButton?.isHidden = false
                 })
+                
+            } else {
+                self.removeEnemyFromFirebase()
             }
-            
         }
         
         let attackButtonX = escapeButton.position.x
@@ -170,5 +177,9 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func removeEnemyFromFirebase() {
+        firebase!.child("enemies").child(self.enemy!.identifier).removeValue()
     }
 }
