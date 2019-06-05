@@ -31,11 +31,28 @@ class SettingsTableVC: UITableViewController {
         
         switch indexPath.row {
         case 1:
-            print("change password")
+            performSegue(withIdentifier: "NewPasswordSegue", sender: self)
         case 2:
             self.navigationController?.popViewController(animated: true)
         default:
             print("switch default")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("SettingsTableVC: viewWillAppear()")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "NewPasswordSegue":
+            let newPasswordVC = segue.destination as! NewPasswordVC
+            let parent = self.parent as! SettingsVC
+            newPasswordVC.user = parent.user
+        default:
+            print("Default")
         }
     }
 }

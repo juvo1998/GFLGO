@@ -112,7 +112,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func centerMap() {
-        let RADIUS: CLLocationDistance = 3000.0 // meters
+        let RADIUS: CLLocationDistance = 2000.0 // meters
         let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: RADIUS, longitudinalMeters: RADIUS)
         self.mapOutlet.setRegion(region, animated: true)
     }

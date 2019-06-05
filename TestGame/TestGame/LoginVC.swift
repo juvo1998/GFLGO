@@ -80,7 +80,7 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
             
             // If we get here, then invalid username / password
             let alert = UIAlertController(title: "Could not verify", message: "Your username or password was entered incorrectly.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }

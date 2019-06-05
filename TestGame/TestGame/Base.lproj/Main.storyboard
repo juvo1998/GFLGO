@@ -195,9 +195,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sQm-pn-tBh">
-                                <rect key="frame" x="127.5" y="462" width="159" height="30"/>
+                                <rect key="frame" x="127" y="462" width="160" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="159" id="p04-Xb-kxK"/>
+                                    <constraint firstAttribute="width" constant="160" id="p04-Xb-kxK"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -349,10 +349,67 @@
                             <outlet property="delegate" destination="pfd-AA-kO3" id="SUf-Rh-XIb"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="Lxl-VL-3Q7" kind="show" identifier="NewPasswordSegue" id="WWr-Wg-Ogb"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiI-S7-830" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1787" y="727"/>
+        </scene>
+        <!--New PasswordVC-->
+        <scene sceneID="zmN-zx-EOw">
+            <objects>
+                <viewController id="Lxl-VL-3Q7" customClass="NewPasswordVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bH1-BT-8kp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="646"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Old password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rVX-UC-mPh">
+                                <rect key="frame" x="127" y="308" width="160" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="UuD-rl-kF9"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mgs-xM-Wg3">
+                                <rect key="frame" x="127" y="338" width="160" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="AZX-DQ-sgz"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCp-2S-tJk">
+                                <rect key="frame" x="145.5" y="376" width="123" height="30"/>
+                                <state key="normal" title="Change password"/>
+                                <connections>
+                                    <action selector="changePasswordAction:" destination="Lxl-VL-3Q7" eventType="touchUpInside" id="uXp-cs-QRE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DCp-2S-tJk" firstAttribute="top" secondItem="Mgs-xM-Wg3" secondAttribute="bottom" constant="8" id="D0g-ra-DKR"/>
+                            <constraint firstItem="DCp-2S-tJk" firstAttribute="centerX" secondItem="qVY-9i-yBK" secondAttribute="centerX" id="Ic1-jR-mso"/>
+                            <constraint firstItem="rVX-UC-mPh" firstAttribute="centerX" secondItem="qVY-9i-yBK" secondAttribute="centerX" id="OC8-ia-aIe"/>
+                            <constraint firstItem="Mgs-xM-Wg3" firstAttribute="centerX" secondItem="qVY-9i-yBK" secondAttribute="centerX" id="ZNu-G7-fsb"/>
+                            <constraint firstItem="Mgs-xM-Wg3" firstAttribute="top" secondItem="rVX-UC-mPh" secondAttribute="bottom" id="fu0-6j-Uth"/>
+                            <constraint firstItem="rVX-UC-mPh" firstAttribute="top" secondItem="qVY-9i-yBK" secondAttribute="top" constant="264" id="vHR-2G-P8q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qVY-9i-yBK"/>
+                    </view>
+                    <connections>
+                        <outlet property="newPasswordOutlet" destination="Mgs-xM-Wg3" id="ZXN-bt-cQy"/>
+                        <outlet property="oldPasswordOutlet" destination="rVX-UC-mPh" id="1Et-7I-VTh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HAj-Kx-wFi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2470" y="713"/>
         </scene>
         <!--Map-->
         <scene sceneID="kSV-AN-DQf">
