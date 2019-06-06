@@ -76,11 +76,20 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         enemyCallout.layer.cornerRadius = 10
         enemyCallout.isHidden = true;
         
-        // Set up spawn timer
-        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (t) in
-            if self.successfulWithPercent(25) {
-                print("spawn")
-                self.spawnEnemy()
+        /*
+         Set up spawn timer:
+         Can only have 20 enemies near a user. When there are 0 enemies near the User, there will be a 20% chance
+         for an enemy to spawn every 10 seconds. As there are more enemies, the spawn chance decreases (at 10 enemies, there
+         will be a 10% chance at every 10 seconds).
+         */
+        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (t) in
+            let numEnemies = self.getNumberOfEnemiesAroundUser()
+            let spawnChance = 20 - numEnemies
+            if numEnemies < 20 {
+                if self.successfulWithPercent(spawnChance) {
+                    print("spawn")
+                    self.spawnEnemy()
+                }
             }
         }
     }
@@ -230,7 +239,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
                 if (distance <= VIEW_DISTANCE) {
-                    print("Distance: \(distance)")
                     let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemyList.append(enemy)
                 }
@@ -333,5 +341,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             return true
         }
         return false
+    }
+    
+    func getNumberOfEnemiesAroundUser() -> Int {
+        let num = self.mapOutlet.annotations.count
+        return num
     }
 }
