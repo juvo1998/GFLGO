@@ -13,7 +13,7 @@
         <!--LoginVC-->
         <scene sceneID="Mi2-WP-NS7">
             <objects>
-                <viewController storyboardIdentifier="LoginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IZp-Sd-OTD" customClass="LoginVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IZp-Sd-OTD" customClass="LoginVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CbQ-bi-C8S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,7 +79,7 @@
         <!--Tab BarVC-->
         <scene sceneID="FmO-hy-veJ">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cdi-Bo-XxH" customClass="TabBarVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cdi-Bo-XxH" customClass="TabBarVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6cS-5y-qCE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -98,40 +98,40 @@
         <!--User-->
         <scene sceneID="hRM-Jp-mbf">
             <objects>
-                <viewController storyboardIdentifier="UserVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xl4-NO-wce" customClass="UserVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xl4-NO-wce" customClass="UserVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wgR-Vd-H7Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGg-R5-3wl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGg-R5-3wl">
                                 <rect key="frame" x="25" y="103" width="364" height="49"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="41"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="health" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-9V-gng">
-                                <rect key="frame" x="25" y="341" width="364" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="power" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c72-7y-Zo9">
-                                <rect key="frame" x="25" y="370" width="364" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cms" translatesAutoresizingMaskIntoConstraints="NO" id="M3m-VT-ITj">
-                                <rect key="frame" x="87" y="181" width="240" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="cms_full" translatesAutoresizingMaskIntoConstraints="NO" id="M3m-VT-ITj">
+                                <rect key="frame" x="0.0" y="160" width="414" height="417"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="health" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIp-9V-gng">
+                                <rect key="frame" x="25" y="585" width="364" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="power" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c72-7y-Zo9">
+                                <rect key="frame" x="25" y="614" width="364" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIv-0w-oGh">
-                                <rect key="frame" x="25" y="399" width="176" height="21"/>
+                                <rect key="frame" x="25" y="643" width="176" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="experience" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvj-LJ-tvf">
-                                <rect key="frame" x="209" y="399" width="180" height="21"/>
+                                <rect key="frame" x="209" y="643" width="180" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -144,16 +144,19 @@
                             <constraint firstItem="WGg-R5-3wl" firstAttribute="top" secondItem="m5d-p5-t9z" secondAttribute="top" constant="15" id="EWb-zi-BAn"/>
                             <constraint firstItem="m5d-p5-t9z" firstAttribute="trailing" secondItem="WGg-R5-3wl" secondAttribute="trailing" constant="25" id="EwI-m4-0af"/>
                             <constraint firstItem="m5d-p5-t9z" firstAttribute="trailing" secondItem="c72-7y-Zo9" secondAttribute="trailing" constant="25" id="G7R-7b-Q5m"/>
+                            <constraint firstItem="M3m-VT-ITj" firstAttribute="leading" secondItem="m5d-p5-t9z" secondAttribute="leading" id="Mqw-GK-r4G"/>
                             <constraint firstItem="WGg-R5-3wl" firstAttribute="leading" secondItem="m5d-p5-t9z" secondAttribute="leading" constant="25" id="SDh-No-Fkc"/>
-                            <constraint firstItem="M3m-VT-ITj" firstAttribute="top" secondItem="WGg-R5-3wl" secondAttribute="bottom" constant="29" id="SnI-wT-ln1"/>
+                            <constraint firstItem="VIp-9V-gng" firstAttribute="top" secondItem="M3m-VT-ITj" secondAttribute="bottom" constant="8" id="TAE-jU-drv"/>
                             <constraint firstItem="vIv-0w-oGh" firstAttribute="top" secondItem="c72-7y-Zo9" secondAttribute="bottom" constant="8" id="TTF-yu-j57"/>
                             <constraint firstItem="c72-7y-Zo9" firstAttribute="top" secondItem="VIp-9V-gng" secondAttribute="bottom" constant="8" id="ZWv-SC-3lE"/>
                             <constraint firstItem="m5d-p5-t9z" firstAttribute="trailing" secondItem="VIp-9V-gng" secondAttribute="trailing" constant="25" id="bee-7E-6S5"/>
-                            <constraint firstItem="VIp-9V-gng" firstAttribute="top" secondItem="M3m-VT-ITj" secondAttribute="bottom" constant="32" id="dX2-Uh-nNw"/>
                             <constraint firstItem="jvj-LJ-tvf" firstAttribute="top" secondItem="c72-7y-Zo9" secondAttribute="bottom" constant="8" id="eA9-Ne-mll"/>
                             <constraint firstItem="m5d-p5-t9z" firstAttribute="trailing" secondItem="jvj-LJ-tvf" secondAttribute="trailing" constant="25" id="h10-EV-gbH"/>
+                            <constraint firstItem="m5d-p5-t9z" firstAttribute="bottom" secondItem="VIp-9V-gng" secondAttribute="bottom" constant="207" id="nKx-Ju-yFc"/>
                             <constraint firstItem="vIv-0w-oGh" firstAttribute="leading" secondItem="m5d-p5-t9z" secondAttribute="leading" constant="25" id="oW5-B7-4x6"/>
                             <constraint firstItem="c72-7y-Zo9" firstAttribute="leading" secondItem="m5d-p5-t9z" secondAttribute="leading" constant="25" id="vJU-IF-3pC"/>
+                            <constraint firstItem="M3m-VT-ITj" firstAttribute="top" secondItem="WGg-R5-3wl" secondAttribute="bottom" constant="8" id="vm0-gA-Ith"/>
+                            <constraint firstItem="M3m-VT-ITj" firstAttribute="trailing" secondItem="m5d-p5-t9z" secondAttribute="trailing" id="z0M-eN-r7k"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m5d-p5-t9z"/>
                     </view>
@@ -173,7 +176,7 @@
         <!--Item-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="GameViewController" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="GameViewController" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -189,7 +192,7 @@
         <!--SignupVC-->
         <scene sceneID="xr4-EF-Eca">
             <objects>
-                <viewController storyboardIdentifier="SignupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kzg-Dp-oGe" customClass="SignupVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kzg-Dp-oGe" customClass="SignupVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eLt-Me-7Kg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,7 +246,7 @@
         <!--Settings-->
         <scene sceneID="nV2-vH-7a3">
             <objects>
-                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JGZ-yR-8aD" customClass="SettingsVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JGZ-yR-8aD" customClass="SettingsVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8k1-14-9fE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -281,7 +284,7 @@
         <!--Settings TableVC-->
         <scene sceneID="Tse-cL-wS0">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsTableVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pfd-AA-kO3" customClass="SettingsTableVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingsTableVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pfd-AA-kO3" customClass="SettingsTableVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dhK-l0-v2R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="646"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -360,7 +363,7 @@
         <!--New PasswordVC-->
         <scene sceneID="zmN-zx-EOw">
             <objects>
-                <viewController id="Lxl-VL-3Q7" customClass="NewPasswordVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lxl-VL-3Q7" customClass="NewPasswordVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bH1-BT-8kp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="646"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -414,7 +417,7 @@
         <!--Map-->
         <scene sceneID="kSV-AN-DQf">
             <objects>
-                <viewController storyboardIdentifier="MapVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2hJ-c3-nvA" customClass="MapVC" customModule="TestGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2hJ-c3-nvA" customClass="MapVC" customModule="GFLGO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ETh-pD-YGC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -534,6 +537,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cms" width="130" height="164"/>
+        <image name="cms_full" width="1024" height="1024"/>
     </resources>
 </document>
