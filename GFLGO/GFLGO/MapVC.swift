@@ -197,7 +197,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 self.mapOutlet.setCenter(coordinate, animated: true)
             }
         }
-        
     }
     
     @IBAction func battleAction(_ sender: UIButton) {
@@ -214,8 +213,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = touches.first
-        // location is relative to the current view
-        // do something with the touched point
         if touch?.view != enemyCallout {
             enemyCallout.isHidden = true
         }
@@ -254,7 +251,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
                 if (distance <= VIEW_DISTANCE) {
-                    let enemy = Enemy(name: enemyName, health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
+                    let enemy = Enemy(health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
+                    enemy.name = enemyName
                     enemyList.append(enemy)
                 }
                 
@@ -300,7 +298,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let enemyCoord = getRandomCoordinateAroundUser(currentCoordinate: self.userLocation!)
         let enemyID = getUniqueEnemyID()
         print(enemyID)
-        let newEnemy = Enemy(name: "hey", health: 30.0, location: enemyCoord, identifier: enemyID, power: 2.0)
+        let newEnemy = Enemy(health: 30.0, location: enemyCoord, identifier: enemyID, power: 2.0)
         addEnemyToFirebase(enemy: newEnemy)
     }
     
