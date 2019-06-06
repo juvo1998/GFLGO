@@ -12,6 +12,7 @@ import UIKit
 class SettingsVC: UIViewController {
     
     var user: User?
+    var timer: Timer?
     
     let NUM_ROWS = 4
     
@@ -22,5 +23,7 @@ class SettingsVC: UIViewController {
         // Obtain the User from the TabBarVC
         let tabBarVC = tabBarController as! TabBarVC
         self.user = tabBarVC.user
+        
+        self.timer = tabBarVC.timer
     }
 }

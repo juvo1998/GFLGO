@@ -33,6 +33,8 @@ class SettingsTableVC: UITableViewController {
         case 1:
             performSegue(withIdentifier: "NewPasswordSegue", sender: self)
         case 2:
+            let parent = self.parent as! SettingsVC
+            parent.timer!.invalidate() // stop timer
             self.navigationController?.popViewController(animated: true)
         default:
             print("switch default")

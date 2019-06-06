@@ -14,6 +14,7 @@ class TabBarVC: UITabBarController {
     
     var user: User?
     var locationManager: CLLocationManager?
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -46,6 +46,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var timer: Timer?
+    
     @IBOutlet weak var centerOutlet: UIButton!
     @IBOutlet weak var mapOutlet: MKMapView!
     
@@ -73,6 +75,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         
         enemyCallout.layer.cornerRadius = 10
         enemyCallout.isHidden = true;
+        
+        // Set up spawn timer
+        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in
+            if self.successfulWithPercent(100) {
+                print("spawn")
+                // self.spawnEnemy()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -260,6 +270,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     @IBAction func addEnemyAction(_ sender: UIButton) {
+        spawnEnemy()
+    }
+    
+    func spawnEnemy() {
         let enemyCoord = getRandomCoordinateAroundUser(currentCoordinate: self.userLocation!)
         let enemyID = getUniqueEnemyID()
         print(enemyID)
@@ -307,5 +321,17 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         UIGraphicsEndImageContext()
         
         return newImage!
+    }
+    
+    func successfulWithPercent(_ percent: Int) -> Bool {
+        let random1 = Int.random(in: 1...100)
+        var random2 = Int.random(in: 1...100)
+        while random1 == random2 {
+            random2 = Int.random(in: 1...100)
+        }
+        if random2 <= percent {
+            return true
+        }
+        return false
     }
 }
