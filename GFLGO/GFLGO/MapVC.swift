@@ -46,6 +46,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var mapCamera: MKMapCamera?
+    
     var timer: Timer?
     
     @IBOutlet weak var centerOutlet: UIButton!
@@ -69,12 +71,17 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.user = tabBarVC.user
         
         // Set up map
-        // self.firstCenter = true
         mapOutlet.delegate = self
         mapOutlet.showsUserLocation = true
+        self.mapOutlet.showsBuildings = true
         
         enemyCallout.layer.cornerRadius = 10
         enemyCallout.isHidden = true;
+        
+        // create a 3D Camera
+        self.mapCamera = MKMapCamera()
+        self.mapCamera!.pitch = 45
+        self.mapCamera!.altitude = 1500 // example altitude
         
         /*
          Set up spawn timer:
@@ -131,9 +138,17 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func centerMap() {
+        /*
         let RADIUS: CLLocationDistance = 2000.0 // meters
         let region = MKCoordinateRegion(center: userLocation!, latitudinalMeters: RADIUS, longitudinalMeters: RADIUS)
         self.mapOutlet.setRegion(region, animated: true)
+         */
+        
+        self.mapCamera = MKMapCamera()
+        self.mapCamera!.pitch = 45
+        self.mapCamera!.altitude = 1500 // example altitude
+        self.mapCamera!.centerCoordinate = self.userLocation!
+        self.mapOutlet.setCamera(self.mapCamera!, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
