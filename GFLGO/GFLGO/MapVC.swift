@@ -74,14 +74,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         mapOutlet.delegate = self
         mapOutlet.showsUserLocation = true
         self.mapOutlet.showsBuildings = true
+        self.mapCamera = MKMapCamera()
         
         enemyCallout.layer.cornerRadius = 10
         enemyCallout.isHidden = true;
-        
-        // create a 3D Camera
-        self.mapCamera = MKMapCamera()
-        self.mapCamera!.pitch = 45
-        self.mapCamera!.altitude = 1500 // example altitude
         
         /*
          Set up spawn timer:
@@ -144,9 +140,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.mapOutlet.setRegion(region, animated: true)
          */
         
-        self.mapCamera = MKMapCamera()
-        self.mapCamera!.pitch = 45
-        self.mapCamera!.altitude = 1500 // example altitude
+        self.mapCamera!.pitch = 80
+        self.mapCamera!.altitude = 100 // example altitude
         self.mapCamera!.centerCoordinate = self.userLocation!
         self.mapOutlet.setCamera(self.mapCamera!, animated: true)
     }
@@ -230,7 +225,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     func findEnemiesAroundUser(completion: @escaping (_ enemies: [Enemy]) -> ()) {
         var enemyList = [Enemy]()
-        let VIEW_DISTANCE = 5000.0
+        let VIEW_DISTANCE = 100.0
         firebase!.child("enemies").observeSingleEvent(of: .value, with: {(snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 
@@ -250,6 +245,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
+                print("dist: \(distance)")
                 if (distance <= VIEW_DISTANCE) {
                     let enemy = Enemy(health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemy.name = enemyName
@@ -265,7 +261,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let currentLat = currentCoordinate.latitude
         let currentLong = currentCoordinate.longitude
         
-        let HALF_LENGTH = 600.0
+        let HALF_LENGTH = 170.0
         
         let bufferX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         var randomChangeX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
