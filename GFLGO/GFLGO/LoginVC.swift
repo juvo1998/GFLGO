@@ -11,6 +11,27 @@ import UIKit
 import Firebase
 import CoreLocation
 
+extension UIView {
+    func addBackground(imageName: String, contentMode: UIView.ContentMode = .scaleToFill) {
+        // setup the UIImageView
+        let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImageView.image = UIImage(named: imageName)
+        backgroundImageView.contentMode = contentMode
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(backgroundImageView)
+        sendSubviewToBack(backgroundImageView)
+        
+        // adding NSLayoutConstraints
+        let leadingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let trailingConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let topConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0.0)
+        let bottomConstraint = NSLayoutConstraint(item: backgroundImageView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, bottomConstraint])
+    }
+}
+
 class LoginVC: UIViewController, CLLocationManagerDelegate {
     
     var firebase: DatabaseReference?
@@ -21,6 +42,9 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var usernameOutlet: UITextField!
     @IBOutlet weak var passwordOutlet: UITextField!
+    @IBOutlet weak var loginViewOutlet: UIView!
+    @IBOutlet weak var loginButtonOutlet: UIButton!
+    @IBOutlet weak var signupButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +59,34 @@ class LoginVC: UIViewController, CLLocationManagerDelegate {
             !(CLLocationManager.authorizationStatus() == .authorizedWhenInUse) {
             self.locationManager.requestWhenInUseAuthorization()
         }
+        
+        // Login square visuals
+        self.loginViewOutlet.layer.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        self.loginViewOutlet.layer.cornerRadius = 12
+        
+        self.loginButtonOutlet.layer.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        self.loginButtonOutlet.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.loginButtonOutlet.layer.borderWidth = 2
+        self.loginButtonOutlet.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        
+        self.signupButtonOutlet.layer.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        self.signupButtonOutlet.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.signupButtonOutlet.layer.borderWidth = 2
+        self.signupButtonOutlet.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
+        
+        self.usernameOutlet.layer.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.usernameOutlet.layer.cornerRadius = 1
+        self.usernameOutlet.layer.borderWidth = 2
+        
+        self.passwordOutlet.layer.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.passwordOutlet.layer.cornerRadius = 1
+        self.passwordOutlet.layer.borderWidth = 2
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("LoginVC: viewWillAppear()")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

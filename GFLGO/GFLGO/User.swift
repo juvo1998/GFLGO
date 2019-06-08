@@ -9,6 +9,10 @@
 import Foundation
 import Firebase
 
+enum Gun: String {
+    case cms
+}
+
 class User {
     
     var firebase = Database.database().reference()
@@ -22,7 +26,7 @@ class User {
     var totalExp: Int
     var exp: Int
     var level: Int
-    
+        
     init(username: String, password: String, userID: Int, health: Double, power: Double, totalExp: Int) {
         // Set up basic properties
         self.username = username

@@ -21,6 +21,7 @@ class SignupVC: UIViewController {
         print("SignupVC: viewDidLoad()")
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.firebase = Database.database().reference()
     }
     
