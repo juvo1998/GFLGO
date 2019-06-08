@@ -85,10 +85,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
          for an enemy to spawn every 10 seconds. As there are more enemies, the spawn chance decreases (at 10 enemies, there
          will be a 10% chance at every 10 seconds).
          */
-        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (t) in
+        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (t) in
             let numEnemies = self.getNumberOfEnemiesAroundUser()
-            let spawnChance = 20 - numEnemies
-            if numEnemies < 20 {
+            let spawnChance = 50 - numEnemies
+            print("Number of enemies: \(numEnemies) / 50")
+            if numEnemies < 50 {
                 if self.successfulWithPercent(spawnChance) {
                     print("spawn")
                     self.spawnEnemy()
@@ -129,6 +130,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     @IBAction func centerAction(_ sender: UIButton) {
+        print(self.mapOutlet!.annotations.count)
         centerMap()
         setUpAnnotations()
     }
@@ -245,7 +247,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
-                print("dist: \(distance)")
                 if (distance <= VIEW_DISTANCE) {
                     let enemy = Enemy(health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemy.name = enemyName
@@ -296,6 +297,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         print(enemyID)
         let newEnemy = Enemy(health: 30.0, location: enemyCoord, identifier: enemyID, power: 2.0)
         addEnemyToFirebase(enemy: newEnemy)
+        
+        // Add enemy annotation
+        let enemyAnnotation = EnemyAnnotation(enemy: newEnemy)
+        self.mapOutlet.addAnnotation(enemyAnnotation)
     }
     
     func addEnemyToFirebase(enemy: Enemy) {
@@ -306,7 +311,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             self.firebase!.child("enemies").child(enemy.identifier).child("power").setValue(enemy.power)
             self.firebase!.child("enemies").child(enemy.identifier).child("latitude").setValue(enemy.latitude)
             self.firebase!.child("enemies").child(enemy.identifier).child("longitude").setValue(enemy.longitude)
-            self.setUpAnnotations()
+            // self.setUpAnnotations()
         }
     }
     
@@ -346,6 +351,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         while random1 == random2 {
             random2 = Int.random(in: 1...100)
         }
+        print("random2 was \(random2), with percent chance of \(percent)")
         if random2 <= percent {
             return true
         }
@@ -353,7 +359,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func getNumberOfEnemiesAroundUser() -> Int {
-        let num = self.mapOutlet.annotations.count
+        let num = self.mapOutlet.annotations.count - 1
+        print("num Annotations - 1 = \(num)")
         return num
     }
 }
