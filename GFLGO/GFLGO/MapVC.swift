@@ -76,6 +76,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.mapOutlet.showsBuildings = true
         self.mapCamera = MKMapCamera()
         
+        // Customize the enemy callout
         enemyCallout.layer.cornerRadius = 10
         enemyCallout.isHidden = true;
         
@@ -85,13 +86,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
          for an enemy to spawn every 10 seconds. As there are more enemies, the spawn chance decreases (at 10 enemies, there
          will be a 10% chance at every 10 seconds).
          */
-        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (t) in
+        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (t) in
             let numEnemies = self.getNumberOfEnemiesAroundUser()
             let spawnChance = 50 - numEnemies
-            print("Number of enemies: \(numEnemies) / 50")
             if numEnemies < 50 {
                 if self.successfulWithPercent(spawnChance) {
-                    print("spawn")
+                    print("spawn, with num enemies: \(numEnemies + 1)")
                     self.spawnEnemy()
                 }
             }
@@ -122,7 +122,20 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("MapVC: didUpdateLocations")
-        self.userLocation = locations.last!.coordinate
+        let currCoordinate = locations.last!.coordinate
+        self.userLocation = currCoordinate
+        self.user!.latitude = currCoordinate.latitude
+        self.user!.longitude = currCoordinate.longitude
+        
+        // Update the user's location in Firebase
+        self.firebase!.child("users").observeSingleEvent(of: .value) { (snapshot) in
+            let userID = String(self.user!.userID)
+            let latitude = currCoordinate.latitude
+            let longitude = currCoordinate.longitude
+            
+            self.firebase!.child("users").child(userID).child("latitude").setValue(latitude)
+            self.firebase!.child("users").child(userID).child("longitude").setValue(longitude)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -130,7 +143,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     @IBAction func centerAction(_ sender: UIButton) {
-        print(self.mapOutlet!.annotations.count)
         centerMap()
         setUpAnnotations()
     }
@@ -217,18 +229,24 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     func setUpAnnotations() {
         self.mapOutlet.removeAnnotations(self.mapOutlet.annotations)
+        
+        // Set up enemy annotations
         findEnemiesAroundUser { (enemies) in
             for enemy in enemies {
                 let enemyAnnotation = EnemyAnnotation(enemy: enemy)
                 self.mapOutlet.addAnnotation(enemyAnnotation)
             }
         }
+        
+        // Set up other player annotations
+        // findPlayersAroundUser
     }
     
     func findEnemiesAroundUser(completion: @escaping (_ enemies: [Enemy]) -> ()) {
         var enemyList = [Enemy]()
         let VIEW_DISTANCE = 100.0
-        firebase!.child("enemies").observeSingleEvent(of: .value, with: {(snapshot) in
+        
+        firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 
                 // Grab enemy data from Firebase
@@ -247,15 +265,55 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
-                if (distance <= VIEW_DISTANCE) {
+                if distance <= VIEW_DISTANCE {
+                    print("Adding enemy: \(enemyName) to list")
                     let enemy = Enemy(health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemy.name = enemyName
                     enemyList.append(enemy)
                 }
-                
-                completion(enemyList)
             }
-        })
+            print("sending completion()")
+            completion(enemyList)
+        }
+    }
+    
+    func findPlayersAroundUser(completion: @escaping (_ users: [User]) -> ()) {
+        var userList = [User]()
+        let VIEW_DISTANCE = 20.0
+        
+        firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                // Grab user data from Firebase
+                let userID = Int(child.key)
+                
+                // Skip if user is self
+                if userID == self.user!.userID {
+                    continue
+                }
+                
+                let username = child.childSnapshot(forPath: "username").value as! String
+                let health = child.childSnapshot(forPath: "health").value as! Double
+                let power = child.childSnapshot(forPath: "power").value as! Double
+                let totalExp = child.childSnapshot(forPath: "totalExp").value as! Int
+                let latitude = child.childSnapshot(forPath: "latitude").value as! Double
+                let longitude = child.childSnapshot(forPath: "longitude").value as! Double
+                
+                // Get current location for user and players
+                let userLatitude = self.userLocation!.latitude
+                let userLongitude = self.userLocation!.longitude
+                let userLoc = CLLocation(latitude: userLatitude, longitude: userLongitude)
+                let enemyLoc = CLLocation(latitude: latitude, longitude: longitude)
+                
+                // Compare distances and filter only nearby players into list
+                let distance = enemyLoc.distance(from: userLoc)
+                if distance <= VIEW_DISTANCE {
+                    let otherUser = User(username: username, userID: userID!, health: health, power: power, totalExp: totalExp)
+                    userList.append(otherUser)
+                }
+            }
+            completion(userList)
+        }
     }
     
     func getRandomCoordinateAroundUser(currentCoordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
@@ -294,7 +352,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func spawnEnemy() {
         let enemyCoord = getRandomCoordinateAroundUser(currentCoordinate: self.userLocation!)
         let enemyID = getUniqueEnemyID()
-        print(enemyID)
         let newEnemy = Enemy(health: 30.0, location: enemyCoord, identifier: enemyID, power: 2.0)
         addEnemyToFirebase(enemy: newEnemy)
         
@@ -351,7 +408,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         while random1 == random2 {
             random2 = Int.random(in: 1...100)
         }
-        print("random2 was \(random2), with percent chance of \(percent)")
         if random2 <= percent {
             return true
         }
@@ -359,8 +415,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func getNumberOfEnemiesAroundUser() -> Int {
-        let num = self.mapOutlet.annotations.count - 1
-        print("num Annotations - 1 = \(num)")
+        // let num = self.mapOutlet.annotations.count - 1
+        let annotations = self.mapOutlet.annotations
+        let enemies = annotations.filter{$0 is EnemyAnnotation}
+        let num = enemies.count
         return num
     }
 }

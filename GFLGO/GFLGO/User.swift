@@ -18,7 +18,7 @@ class User {
     var firebase = Database.database().reference()
     
     var username: String
-    var password: String
+    var password: String?
     var userID: Int
     
     var health: Double
@@ -26,8 +26,11 @@ class User {
     var totalExp: Int
     var exp: Int
     var level: Int
+    
+    var latitude: Double?
+    var longitude: Double?
         
-    init(username: String, password: String, userID: Int, health: Double, power: Double, totalExp: Int) {
+    init(username: String, password: String? = nil, userID: Int, health: Double, power: Double, totalExp: Int) {
         // Set up basic properties
         self.username = username
         self.password = password
