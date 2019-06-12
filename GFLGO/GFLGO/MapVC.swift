@@ -87,12 +87,13 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
          will be a 10% chance at every 10 seconds).
          */
         tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (t) in
-            let numEnemies = self.getNumberOfEnemiesAroundUser()
-            let spawnChance = 50 - numEnemies
-            if numEnemies < 50 {
-                if self.successfulWithPercent(spawnChance) {
-                    print("spawn, with num enemies: \(numEnemies + 1)")
-                    self.spawnEnemy()
+            self.getNumberOfEnemiesAroundUser { (numEnemies) in
+                let spawnChance = 50 - numEnemies
+                if numEnemies < 50 {
+                    if self.successfulWithPercent(spawnChance) {
+                        print("spawn, with num enemies: \(numEnemies + 1)")
+                        self.spawnEnemy()
+                    }
                 }
             }
         }
@@ -244,7 +245,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     func findEnemiesAroundUser(completion: @escaping (_ enemies: [Enemy]) -> ()) {
         var enemyList = [Enemy]()
-        let VIEW_DISTANCE = 100.0
+        let VIEW_DISTANCE = 150.0
         
         firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
@@ -266,13 +267,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 // Compare distance
                 let distance = enemyLoc.distance(from: userLoc)
                 if distance <= VIEW_DISTANCE {
-                    print("Adding enemy: \(enemyName) to list")
                     let enemy = Enemy(health: enemyHealth, latitude: enemyLatitude, longitude: enemyLongitude, identifier: enemyID, power: enemyPower)
                     enemy.name = enemyName
                     enemyList.append(enemy)
                 }
             }
-            print("sending completion()")
             completion(enemyList)
         }
     }
@@ -320,7 +319,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let currentLat = currentCoordinate.latitude
         let currentLong = currentCoordinate.longitude
         
-        let HALF_LENGTH = 170.0
+        let HALF_LENGTH = 100.0
         
         let bufferX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
         var randomChangeX = Double.random(in: -HALF_LENGTH...HALF_LENGTH)
@@ -414,11 +413,30 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         return false
     }
     
-    func getNumberOfEnemiesAroundUser() -> Int {
-        // let num = self.mapOutlet.annotations.count - 1
-        let annotations = self.mapOutlet.annotations
-        let enemies = annotations.filter{$0 is EnemyAnnotation}
-        let num = enemies.count
-        return num
+    func getNumberOfEnemiesAroundUser(completion: @escaping (_ count: Int) -> ()) {
+        var count = 0
+        let VIEW_DISTANCE = 100.0
+        
+        firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                // Grab enemy data from Firebase
+                let enemyLatitude = child.childSnapshot(forPath: "latitude").value as! Double
+                let enemyLongitude = child.childSnapshot(forPath: "longitude").value as! Double
+                
+                // Get CLLocation from enemy and user coordinates
+                let userLatitude = self.userLocation!.latitude
+                let userLongitude = self.userLocation!.longitude
+                let userLoc = CLLocation(latitude: userLatitude, longitude: userLongitude)
+                let enemyLoc = CLLocation(latitude: enemyLatitude, longitude: enemyLongitude)
+                
+                // Compare distance
+                let distance = enemyLoc.distance(from: userLoc)
+                if distance <= VIEW_DISTANCE {
+                    count += 1
+                }
+            }
+            completion(count)
+        }
     }
 }
