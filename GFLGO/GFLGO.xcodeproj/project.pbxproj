@@ -31,6 +31,7 @@
 		3A7D218D22A99F2400E3CD5D /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D217822A99F2400E3CD5D /* Enemy.swift */; };
 		3A7D218E22A99F2400E3CD5D /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D217922A99F2400E3CD5D /* SettingsVC.swift */; };
 		3A7D218F22A99F2400E3CD5D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7D217A22A99F2400E3CD5D /* User.swift */; };
+		3AFC2DC322B1911C008894F6 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC2DC222B1911C008894F6 /* UserAnnotation.swift */; };
 		A516C4F966A102CEB49AD0FB /* Pods_GFLGO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA24BB479849C1FAB454C103 /* Pods_GFLGO.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		3A7D217822A99F2400E3CD5D /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		3A7D217922A99F2400E3CD5D /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		3A7D217A22A99F2400E3CD5D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3AFC2DC222B1911C008894F6 /* UserAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnnotation.swift; sourceTree = "<group>"; };
 		4F417155275960D718C24636 /* Pods-GFLGO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GFLGO.release.xcconfig"; path = "Target Support Files/Pods-GFLGO/Pods-GFLGO.release.xcconfig"; sourceTree = "<group>"; };
 		AA24BB479849C1FAB454C103 /* Pods_GFLGO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GFLGO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -156,6 +158,7 @@
 				3A7D216D22A99F2300E3CD5D /* ButtonNode.swift */,
 				3A7D217322A99F2400E3CD5D /* HealthBarNode.swift */,
 				3A7D217A22A99F2400E3CD5D /* User.swift */,
+				3AFC2DC222B1911C008894F6 /* UserAnnotation.swift */,
 				3A7D217822A99F2400E3CD5D /* Enemy.swift */,
 				3A7D216E22A99F2300E3CD5D /* EnemyAnnotation.swift */,
 				3A7D217222A99F2400E3CD5D /* Assets.xcassets */,
@@ -384,6 +387,7 @@
 				3A7D218A22A99F2400E3CD5D /* LoginVC.swift in Sources */,
 				3A7D218F22A99F2400E3CD5D /* User.swift in Sources */,
 				3A7D218922A99F2400E3CD5D /* UserVC.swift in Sources */,
+				3AFC2DC322B1911C008894F6 /* UserAnnotation.swift in Sources */,
 				3A7D217D22A99F2400E3CD5D /* GameViewController.swift in Sources */,
 				3A7D218022A99F2400E3CD5D /* TabBarVC.swift in Sources */,
 				3A7D218B22A99F2400E3CD5D /* SignupVC.swift in Sources */,

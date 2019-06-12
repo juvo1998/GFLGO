@@ -86,10 +86,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
          for an enemy to spawn every 10 seconds. As there are more enemies, the spawn chance decreases (at 10 enemies, there
          will be a 10% chance at every 10 seconds).
          */
-        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (t) in
+        tabBarVC.timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (t) in
             self.getNumberOfEnemiesAroundUser { (numEnemies) in
-                let spawnChance = 50 - numEnemies
-                if numEnemies < 50 {
+                let spawnChance = 20 - numEnemies
+                if numEnemies < 20 {
                     if self.successfulWithPercent(spawnChance) {
                         print("spawn, with num enemies: \(numEnemies + 1)")
                         self.spawnEnemy()
@@ -162,9 +162,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is EnemyAnnotation || annotation is MKUserLocation else { return nil }
+        guard annotation is EnemyAnnotation || annotation is UserAnnotation
+            || annotation is MKUserLocation else { return nil }
         
-        if(annotation.isEqual(self.mapOutlet.userLocation)) {
+        if annotation.isEqual(self.mapOutlet.userLocation) {
             let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "UserAnnotationID")
             let buffer = UIImage(named: "cms")
             let SCALE_RATIO: CGFloat = 0.38 // scale down for the annotation view
@@ -173,7 +174,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             annotationView.image = cmsAnnotation
             return annotationView
             
-        } else {
+        } else if annotation is EnemyAnnotation {
             let identifier = "EnemyAnnotationID"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if annotationView == nil {
@@ -184,6 +185,22 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             }
             let buffer = UIImage(named: "aegis")
             let SCALE_RATIO: CGFloat = 0.30 // scale down for the annotation view
+            let size = CGSize(width: buffer!.size.width * SCALE_RATIO, height: buffer!.size.height * SCALE_RATIO)
+            let aegisAnnotation = resize(image: buffer!, targetSize: size)
+            annotationView!.image = aegisAnnotation
+            return annotationView
+            
+        } else { // annotation is UserAnnotation
+            let identifier = "OtherUserAnnotationID"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = false
+            } else {
+                annotationView!.annotation = annotation
+            }
+            let buffer = UIImage(named: "cms")
+            let SCALE_RATIO: CGFloat = 0.70 // scale down for the annotation view and TODO
             let size = CGSize(width: buffer!.size.width * SCALE_RATIO, height: buffer!.size.height * SCALE_RATIO)
             let aegisAnnotation = resize(image: buffer!, targetSize: size)
             annotationView!.image = aegisAnnotation
@@ -206,6 +223,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 let coordinate = enemyAnnotation.coordinate
                 self.mapOutlet.setCenter(coordinate, animated: true)
             }
+            
         }
     }
     
@@ -240,7 +258,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         }
         
         // Set up other player annotations
-        // findPlayersAroundUser
+        findPlayersAroundUser { (players) in
+            for player in players {
+                let userAnnotation = UserAnnotation(user: player)
+                self.mapOutlet.addAnnotation(userAnnotation)
+            }
+        }
     }
     
     func findEnemiesAroundUser(completion: @escaping (_ enemies: [Enemy]) -> ()) {
@@ -280,7 +303,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         var userList = [User]()
         let VIEW_DISTANCE = 20.0
         
-        firebase!.child("enemies").observeSingleEvent(of: .value) { (snapshot) in
+        firebase!.child("users").observeSingleEvent(of: .value) { (snapshot) in
             for child in snapshot.children.allObjects as! [DataSnapshot] {
                 
                 // Grab user data from Firebase
@@ -302,12 +325,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
                 let userLatitude = self.userLocation!.latitude
                 let userLongitude = self.userLocation!.longitude
                 let userLoc = CLLocation(latitude: userLatitude, longitude: userLongitude)
-                let enemyLoc = CLLocation(latitude: latitude, longitude: longitude)
+                let otherLoc = CLLocation(latitude: latitude, longitude: longitude)
                 
                 // Compare distances and filter only nearby players into list
-                let distance = enemyLoc.distance(from: userLoc)
+                let distance = otherLoc.distance(from: userLoc)
                 if distance <= VIEW_DISTANCE {
                     let otherUser = User(username: username, userID: userID!, health: health, power: power, totalExp: totalExp)
+                    otherUser.latitude = latitude
+                    otherUser.longitude = longitude
                     userList.append(otherUser)
                 }
             }
@@ -367,7 +392,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
             self.firebase!.child("enemies").child(enemy.identifier).child("power").setValue(enemy.power)
             self.firebase!.child("enemies").child(enemy.identifier).child("latitude").setValue(enemy.latitude)
             self.firebase!.child("enemies").child(enemy.identifier).child("longitude").setValue(enemy.longitude)
-            // self.setUpAnnotations()
         }
     }
     
